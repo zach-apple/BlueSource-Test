@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="Core-Regression"  parallel="tests" thread-count="20">
-	<parameter name="browserUnderTest" value="chrome" />
-	<parameter name="environment" value="blah" />
-	<parameter name="runLocation" value="sauce" />
-	<parameter name="browserVersion" value="52" />
-	<parameter name="operatingSystem" value="windows 10" />
-    <test name="Element" parallel="methods" thread-count="10">
+<suite name="Core-Regression" parallel="tests" thread-count="20">
+	<listeners>
+		<listener class-name="com.orasi.utils.listeners.TestListener" />
+	</listeners>
+	<parameter name="browserUnderTest" value="jenkinsParameter" />
+	<parameter name="environment" value="jenkinsParameter" />
+	<parameter name="runLocation" value="jenkinsParameter" />
+	<parameter name="browserVersion" value="jenkinsParameter" />
+	<parameter name="operatingSystem" value="jenkinsParameter" />
+	
+	<test name="Element" parallel="methods" thread-count="20">
 		<classes>
 			<class name="com.orasi.web.webelements.TestElement" />
 		</classes>
 	</test>
 
-	<test name="TestElementInternalHandlers" parallel="methods" thread-count="10">
+	<test name="TestElementInternalHandlers" parallel="methods" thread-count="20">
 		<classes>
 			<class name="com.orasi.web.webelements.TestElementInternalHandlers" />
 		</classes>
@@ -28,6 +32,12 @@
 	<test name="Checkbox" parallel="methods" thread-count="20">
 		<classes>
 			<class name="com.orasi.web.webelements.TestCheckbox" />
+		</classes>
+	</test>
+	
+	<test name="TestSoapService" parallel="methods" thread-count="1">
+		<classes>
+			<class name="com.orasi.api.soapServices.TestSoapService" />
 		</classes>
 	</test>
 
@@ -79,6 +89,12 @@
 		</classes>
 	</test>
 	
+	<test name="Base64Encoder" parallel="methods" thread-count="20">
+		<classes>
+			<class name="com.orasi.utils.TestBase64Encoder" />
+		</classes>
+	</test>
+	
 	<test name="CSVDataProvider" parallel="methods" thread-count="20">
 		<classes>
 			<class name="com.orasi.utils.dataProviders.TestCSVDataProvider" />
@@ -90,25 +106,13 @@
 			<class name="com.orasi.utils.dataHelpers.TestCreditCard" />
 		</classes>
 	</test>
-	
+
 	<test name="PersonFactory" parallel="methods" thread-count="20">
 		<classes>
 			<class name="com.orasi.utils.dataHelpers.TestPersonFactory" />
 		</classes>
 	</test>
 	
-	<test name="Base64Encoder" parallel="methods" thread-count="20">
-		<classes>
-			<class name="com.orasi.utils.TestBase64Encoder" />
-		</classes>
-	</test>
-	
-	<test name="JavaUtilities" parallel="methods" thread-count="20">
-		<classes>
-			<class name="com.orasi.utils.TestJavaUtilities" />
-		</classes>
-	</test>
-
 	<test name="ExcelDocumentReader" parallel="methods" thread-count="20">
 		<classes>
 			<class name="com.orasi.utils.TestExcelDocumentReader" />
@@ -144,8 +148,8 @@
 			<class name="com.orasi.web.TestOrasiDriver" />
 		</classes>
 	</test>
-
-    <test name="TestTestReporter" parallel="methods" thread-count="1">
+	
+	<test name="TestTestReporter" parallel="methods" thread-count="1">
 		<classes>
 			<class name="com.orasi.utils.TestTestReporter" />
 		</classes>
@@ -156,21 +160,15 @@
 			<class name="com.orasi.web.TestWindowHandler" />
 		</classes>
 	</test>
-	<test name="TestXMLTools" parallel="methods" thread-count="20">
+	<test name="TestXMLTools">
 		<classes>
 			<class name="com.orasi.utils.TestXMLTools" />
 		</classes>
-	</test>
+	</test> 
 	
 	<test name="TestSoapServiceCommands" parallel="methods" thread-count="20">
 		<classes>
 			<class name="com.orasi.api.soapServices.TestSoapServiceCommands" />
-		</classes>
-	</test>
-	
-	<test name="TestSoapService" parallel="methods" thread-count="1">
-		<classes>
-			<class name="com.orasi.api.soapServices.TestSoapService" />
 		</classes>
 	</test>
 	

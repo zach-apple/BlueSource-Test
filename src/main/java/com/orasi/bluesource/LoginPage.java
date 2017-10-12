@@ -57,6 +57,10 @@ public class LoginPage {
 		
 		return PageLoaded.isElementLoaded(this.getClass(), driver, elmLogo);
 	}
+	
+	public void AdminLogin(){
+		Login("ADMIN");
+	}
 
 	
 	/*
