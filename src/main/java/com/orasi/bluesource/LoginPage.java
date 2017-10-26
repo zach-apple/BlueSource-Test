@@ -18,7 +18,7 @@ import com.orasi.web.webelements.impl.internal.ElementFactory;
 
 public class LoginPage {
 	private OrasiDriver driver = null;
-	private ResourceBundle userCredentialRepo = ResourceBundle.getBundle(Constants.USER_CREDENTIALS_PATH);
+	//private ResourceBundle userCredentialRepo = ResourceBundle.getBundle(Constants.USER_CREDENTIALS_PATH);
 	
 	public int loadTime;
 		
@@ -49,14 +49,14 @@ public class LoginPage {
 	 * @param username
 	 * @param password
 	 */
-	public boolean Login(String role){
+	/*public boolean Login(String role){
 		txtUsername.set(userCredentialRepo.getString(role));
 		txtPassword.set(userCredentialRepo.getString("PASSWORD"));
 		btnLogin.syncVisible(90, false);
 		btnLogin.jsClick();
 		
 		return PageLoaded.isElementLoaded(this.getClass(), driver, elmLogo);
-	}
+	}*/
 
 	
 	/*
