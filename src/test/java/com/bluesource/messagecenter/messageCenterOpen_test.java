@@ -47,7 +47,7 @@ public class messageCenterOpen_test extends WebBaseTest{
     }
     
     @Test(dataProvider = "messageCenter_data")
-    public void messageCenter_Test(String username, String password)
+    public void messageCenter_Test(String username, String password) throws InterruptedException
     {
     	LoginPage login = new LoginPage(getDriver());
     	MessageCenter messageCenter = new MessageCenter(getDriver());

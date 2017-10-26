@@ -44,10 +44,17 @@ public class Accounts {
 	 */
 	public void click_accounts_tab(String username)
 	{
-		if (lnkAccountsTab.isDisplayed() == true)
+		try
 		{
-			System.out.println(username +" has account permissions");
-			lnkAccountsTab.click();
+			if (lnkAccountsTab.isDisplayed() == true)
+			{
+				System.out.println(username +" has account permissions");
+				lnkAccountsTab.click();
+			}
+		}
+		catch(NoSuchElementException e)
+		{
+			System.out.println("User does not have account permissions");
 		}
 		
 	}

@@ -47,7 +47,7 @@ public class accounts_pageLoad extends WebBaseTest{
     }
 	
     @Test(dataProvider = "accounts_pageLoad")
-    public void accounts_pageLoad_test(String username, String password)
+    public void accounts_pageLoad_test(String username, String password) throws InterruptedException
     {
     	LoginPage loginpage = new LoginPage(getDriver());
     	Accounts accountspage = new Accounts(getDriver());

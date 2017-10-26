@@ -49,7 +49,7 @@ public class industrySort extends WebBaseTest{
     }
     
     @Test(dataProvider = "accounts_industry")
-    public void sort_industry(String username, String password)
+    public void sort_industry(String username, String password) throws InterruptedException
     {
     	try
     	{

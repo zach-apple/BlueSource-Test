@@ -63,11 +63,12 @@ public class MessageCenter {
 	 * else print to user that the center is not present
 	 * @author: Daniel Smith
 	 */
-	public void check_if_messageCenter_Open()
+	public void check_if_messageCenter_Open() throws InterruptedException
 	{
-		
 		boolean modal_open = elePopOver.isDisplayed();
-			
+		
+		Thread.sleep(2);
+		
 		if (modal_open == true)
 		   {
 		   		elmClose.click();
