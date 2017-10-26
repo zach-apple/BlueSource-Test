@@ -25,7 +25,7 @@ public class industrySort extends WebBaseTest{
 	// **************
 	@DataProvider(name = "accounts_industry", parallel=true)
 	public Object[][] scenarios() {
-			return new ExcelDataProvider("/testdata/blueSource_Users.xlsx", "Sheet1").getTestData();
+			return new ExcelDataProvider("/excelsheets/blueSource_Users.xlsx", "Sheet1").getTestData();
 	}
 	
 	@BeforeMethod

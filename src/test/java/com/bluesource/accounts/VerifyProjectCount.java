@@ -25,7 +25,7 @@ public class VerifyProjectCount extends WebBaseTest{
 	// **************
 	@DataProvider(name = "verifyProject", parallel=true)
 	public Object[][] scenarios() {
-			return new ExcelDataProvider("/testdata/blueSource_Users.xlsx", "Sheet1").getTestData();
+			return new ExcelDataProvider("/excelsheets/blueSource_Users.xlsx", "Sheet1").getTestData();
 	}
 	
 	@BeforeMethod

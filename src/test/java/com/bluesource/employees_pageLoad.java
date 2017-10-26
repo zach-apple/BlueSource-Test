@@ -24,7 +24,7 @@ public class employees_pageLoad extends WebBaseTest{
 	// **************
 	@DataProvider(name = "employees_pageLoad", parallel=true)
 	public Object[][] scenarios() {
-			return new ExcelDataProvider("/testdata/blueSource_Users.xlsx", "Sheet1").getTestData();
+			return new ExcelDataProvider("/excelsheets/blueSource_Users.xlsx", "Sheet1").getTestData();
 	}
 	
 	@BeforeMethod

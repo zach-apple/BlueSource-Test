@@ -15,7 +15,7 @@
  	<test name="BSPOC" parallel="methods" thread-count="5">
 
 		<classes>
-			<class name="com.bluesource.pageLoad_tests.calendar_pageLoad" />
+			<class name="com.bluesource.calendar_pageLoad" />
 		</classes>
 	</test> 
 </suite> <!-- Suite -->
