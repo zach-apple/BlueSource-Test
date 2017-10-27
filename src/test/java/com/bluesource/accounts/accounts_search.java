@@ -1,6 +1,7 @@
 package com.bluesource.accounts;
 
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriverException;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -45,23 +46,44 @@ public class accounts_search extends WebBaseTest{
 	    	endTest("TestAlert", testResults);
 	    }
 	    
+	    /*
+	     * Test steps:
+	     * Open Browser 
+	     * Navigate to bluesource page
+	     * login to the bluesource page
+	     * click the accounts tab (if the user has account permissions
+	     * click in the search bar and enter information
+	     * logout and close the browser
+	     */
+	    
 	    @Test(dataProvider = "accounts_search")
-	    public void search_for_account_test(String username, String password) throws InterruptedException
+	    public void search_for_account_test(String username, String password, String accountName) throws InterruptedException
 	    {
 	    	//Create page objects for use in the test
 	    	LoginPage loginPage = new LoginPage(getDriver());
 	    	MessageCenter messageCenter = new MessageCenter(getDriver());
 	    	Accounts accountsPage = new Accounts(getDriver());
 	    	
-	    	//Login to the bluesource page
-	    	loginPage.LoginWithCredentials(username, password);
+	    	try
+	    	{
+	    		//Login to the bluesource page
+		    	loginPage.LoginWithCredentials(username, password);
+		    	
+		    	//Check to see if message center is present upon login
+		    	messageCenter.check_if_messageCenter_Open();
+		    	
+		    	//Click on the accounts tab if it is present
+		    	accountsPage.click_accounts_tab(username);
+		    	
+		    	//Perform a search for an account
+		    	accountsPage.search_for_account(accountName);
+		    	
+	    	}
+	    	catch(WebDriverException e)
+	    	{
+	    		System.out.println("Error message: " + e.getMessage());
+	    	}
 	    	
-	    	//Check to see if message center is present upon login
-	    	
-	    	messageCenter.check_if_messageCenter_Open();
-	    	
-	    	//Click on the accounts tab if it is present
-	    	accountsPage.click_accounts_tab(username);
 	    }
 	
 }

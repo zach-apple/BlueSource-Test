@@ -67,7 +67,7 @@ public class MessageCenter {
 	{
 		boolean modal_open = elePopOver.isDisplayed();
 		
-		Thread.sleep(2);
+		Thread.sleep(2000);
 		
 		if (modal_open == true)
 		   {

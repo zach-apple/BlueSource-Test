@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.orasi.web.OrasiDriver;
 import com.orasi.web.webelements.Element;
@@ -28,6 +30,7 @@ public class Accounts {
 	@FindBy(id = "preference_resources_per_page") private Listbox lstAccountPerPage;
 	@FindBy(linkText = "Industry") private Link lnkIndustry;
 	@FindBy(linkText = "Accounts") private Link lnkAccountsTab;
+	@FindBy(xpath = "//input[@id = 'search-bar']") private Element srhBar;
 	
 	/**Constructor**/
 	public Accounts(OrasiDriver driver){
@@ -139,8 +142,23 @@ public class Accounts {
 		}
 		else
 			System.out.println("Link 'Industry' not on current page");
-	
 	}
 	
+	/*
+	 * Perform a searh for an account
+	 * author: Daniel Smith
+	 */
+	public void search_for_account(String accountName)
+	{
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		
+		if (srhBar.isDisplayed() == true)
+		{
+			wait.until(ExpectedConditions.visibilityOf(srhBar));
+			srhBar.click();
+			srhBar.sendKeys(accountName);
+		}
+	
+	}
 	
 }
