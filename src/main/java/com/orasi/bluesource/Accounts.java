@@ -149,15 +149,14 @@ public class Accounts {
 	 * author: Daniel Smith
 	 */
 	public void search_for_account(String accountName)
-	{
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		
+	{		
 		if (srhBar.isDisplayed() == true)
 		{
-			wait.until(ExpectedConditions.visibilityOf(srhBar));
 			srhBar.click();
 			srhBar.sendKeys(accountName);
 		}
+		else
+			System.out.println("srhBar is not found. ");
 	
 	}
 	

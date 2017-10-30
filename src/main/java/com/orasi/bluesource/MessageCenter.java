@@ -16,7 +16,7 @@ public class MessageCenter {
 	private OrasiDriver driver = null;
 	
 	/**Page Elements**/
-	@FindBy(xpath = "//h4[contains(text(), 'Message')]") private Element elePopOver;
+	@FindBy(xpath = "//div[@id='notification_modal']//div/div") private Element elePopOver;
 	@FindBy(xpath = "//*[@id='notification_modal']/div/div/div[1]/button") private Element elmClose;
 	@FindBy(xpath = "/html/body/header/div/nav/ul/li[3]") private Link lblMessageCenterTab;
 	@FindBy(xpath = "/html/body/header/div/nav/ul/li[2]/a") private Link lblotherMessageCenterTab;
@@ -67,7 +67,7 @@ public class MessageCenter {
 	{
 		boolean modal_open = elePopOver.isDisplayed();
 		
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		
 		if (modal_open == true)
 		   {

@@ -23,7 +23,7 @@ public class accounts_search extends WebBaseTest{
 		// **************
 		@DataProvider(name = "accounts_search", parallel=true)
 		public Object[][] scenarios() {
-				return new ExcelDataProvider("/excelsheets/blueSource_Users.xlsx", "Sheet1").getTestData();
+				return new ExcelDataProvider("/excelsheets/blueSource_accounts.xlsx", "Sheet1").getTestData();
 		}
 		
 		@BeforeMethod
@@ -77,7 +77,6 @@ public class accounts_search extends WebBaseTest{
 		    	
 		    	//Perform a search for an account
 		    	accountsPage.search_for_account(accountName);
-		    	
 	    	}
 	    	catch(WebDriverException e)
 	    	{
