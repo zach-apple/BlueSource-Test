@@ -1,5 +1,7 @@
 package com.orasi.bluesource;
 
+import javax.wsdl.Message;
+
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.FindBy;
 
@@ -13,6 +15,8 @@ public class Header {
 	/**Page Elements**/
 	@FindBy(linkText = "Accounts") private Link lnkAccounts;
 	@FindBy(xpath = "//li[contains(.,'Employees')]/a") private Link lnkEmployees;
+	@FindBy(xpath = "//a[contains(text(),'Project')]") private Link lnkProjemployees;
+	@FindBy(xpath = "//a[contains(text(),'Project')]//..//..//..//following-sibling::a") private Link lnkEmployeeSelector;
 	
 	/**Constructor**/
 	public Header(OrasiDriver driver){
@@ -60,6 +64,14 @@ public class Header {
 		MessageCenter messageCenter = new MessageCenter(driver);
 		messageCenter.closeMessageCenter();
 		lnkEmployees.click();		
+	}
+	
+	public void navigateProjectEmployees() {
+		MessageCenter messageCenter = new MessageCenter(driver);
+		messageCenter.closeMessageCenter();
+		lnkEmployeeSelector.click();
+		lnkProjemployees.click();
+		
 	}
 
 }

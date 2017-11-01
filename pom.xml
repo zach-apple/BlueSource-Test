@@ -63,7 +63,7 @@
 						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
 					</argLine>
 					<suiteXmlFiles>
-						<suiteXmlFile>${testNGSourceDirectory}/regression.xml</suiteXmlFile> 
+						<suiteXmlFile>${testNGSourceDirectory}/sandbox.xml</suiteXmlFile> 
 					</suiteXmlFiles>
 					<systemPropertyVariables>
 						<jenkinsOperatingSystem>${operatingSystem}</jenkinsOperatingSystem>

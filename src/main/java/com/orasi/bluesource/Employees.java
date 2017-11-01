@@ -197,8 +197,17 @@ public class Employees {
 	public void selectEmployeeByUsername(String strUsername){
 		//select_employee(findEmployeeInTable(strUsername),2);
 		tblEmployees.syncVisible(5,true);
+		//strUsername.replace(" ", ".");
 		String strLastName = strUsername.substring(strUsername.indexOf(".") + 1).toUpperCase();
 		String xpathexpression = "//a[contains(text(),'" + strLastName + "')]";
+		
+		Link lnkEmployee = driver.findLink(By.xpath(xpathexpression));
+		lnkEmployee.focus();
+		lnkEmployee.click();
+	}
+	
+	public void selectEmployeeByName(String strName){
+		String xpathexpression = "//a[contains(text(),'" + strName + "')]";
 		
 		Link lnkEmployee = driver.findLink(By.xpath(xpathexpression));
 		lnkEmployee.focus();
@@ -225,6 +234,11 @@ public class Employees {
 		}
 		else
 			System.out.println("Error finding the add button on the current page.");
+	}
+
+	public void VerifyProjectEmployeesPage() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
