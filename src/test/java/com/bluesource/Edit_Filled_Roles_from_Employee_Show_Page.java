@@ -23,9 +23,11 @@ import com.orasi.bluesource.MessageCenter;
 import com.orasi.utils.Constants;
 import com.orasi.utils.TestReporter;
 import com.orasi.utils.dataProviders.ExcelDataProvider;
+import com.orasi.utils.date.DateTimeConversion;
+import com.orasi.utils.date.SimpleDate;
 import com.orasi.web.WebBaseTest;
 
-public class Edit_Filled extends WebBaseTest{	
+public class Edit_Filled_Roles_from_Employee_Show_Page extends WebBaseTest{	
 	// ************* *
 	// Data Provider
 	// **************
@@ -46,7 +48,7 @@ public class Edit_Filled extends WebBaseTest{
 			setRunLocation(runLocation);
 			setEnvironment(environment);
 			setThreadDriver(true);
-			testStart("Edit_Filled");
+			testStart("Edit_Filled_Roles_from_Employee_Show_Page");
 	}
 	
 	 @AfterMethod
@@ -86,24 +88,30 @@ public class Edit_Filled extends WebBaseTest{
 		 
 		 //6.Uncheck the Inherit Start Date checkbox->The box will be unchecked, enabling the Start Date field.
 		 TestReporter.logStep("Uncheck Inherit Start Date checkbox");
+		 employeePage.uncheckInheritStartDate();
 		 
-		 //7	Select a different date from the Start Date field.->The selected date will apear in the Start Date field.
+		 //7.Select a different date from the Start Date field.->The selected date will apear in the Start Date field.
 		 TestReporter.logStep("Change Start Date");
+		 employeePage.setRoleStartDate(DateTimeConversion.getDaysOut("0", "MMddyyyy"));
 		 
-		 //8	Uncheck the Inherit End Date checkbox->The box will be unchecked, enabling the Start Date field.
+		 //8.Uncheck the Inherit End Date checkbox->The box will be unchecked, enabling the Start Date field.
 		 TestReporter.logStep("Uncheck Inherit End Date checkbox");
+		 employeePage.uncheckInheritEndDate();
 		 
-		 //9	Select a different date from the End Date field.->The selected date will appear in the End Date field.
+		 //9.Select a different date from the End Date field.->The selected date will appear in the End Date field.
 		 TestReporter.logStep("Change End Date");
+		 employeePage.setRoleEndDate(DateTimeConversion.getDaysOut("7", "MMddyyyy"));
 		 
-		 //10	Add a comment in the Comments field->The comment will be added to the field.
+		 //10.Add a comment in the Comments field->The comment will be added to the field.
 		 TestReporter.logStep("Add Comments");
+		 employeePage.addTestComments();
 		 
-		 //11	Click the Update Filled Role button->The green "Filled Role Updated" label will appear at the top of the selected employee's show page.
+		 //11.Click the Update Filled Role button->The green "Filled Role Updated" label will appear at the top of the selected employee's show page.
 		 TestReporter.logStep("Click Update Filled Role Button");
+		 employeePage.clickUpdateFilledRole();
 		 
-		 //12	Verify that the new start and end dates show on the employee's show page.->The new start and end dates will be displayed.
+		 //12.Verify that the new start and end dates show on the employee's show page.->The new start and end dates will be displayed.
 		 TestReporter.logStep("Verify new start/end dates");
-	 
+		 
 	} 
 }

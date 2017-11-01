@@ -76,7 +76,7 @@ public class LoginPage {
 	}
 	
 	/*
-	 * Method checks that the label welcom is present on the screen
+	 * Method checks that the label welcome is present on the screen
 	 * @author: Daniel Smith
 	 */
 	public void check_login(String username)

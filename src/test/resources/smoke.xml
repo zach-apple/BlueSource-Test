@@ -11,9 +11,9 @@
 	<parameter name="browserVersion" value="" />
 	<parameter name="operatingSystem" value="WINDOWS" />
 	
-	<test name="Edit Filled Roles from Employee Show Page" parallel="methods" thread-count="20">
+	<test name="Login Test" parallel="methods" thread-count="20">
 		<classes>
-			<class name="com.bluesource.Edit_Filled_Roles_from_Employee_Show_Page" />
+			<class name="com.bluesource.loginTest" />
 		</classes>
 	</test>
 

@@ -57,6 +57,8 @@ public class Header {
 	 * @author Paul
 	 */
 	public void navigateEmployees() {
+		MessageCenter messageCenter = new MessageCenter(driver);
+		messageCenter.closeMessageCenter();
 		lnkEmployees.click();		
 	}
 
