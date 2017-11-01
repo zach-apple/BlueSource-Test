@@ -11,7 +11,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Reporter;
 
+import com.bluesource.accounts.Accounts_AccountName_Sort;
+import com.orasi.utils.TestReporter;
 import com.orasi.web.OrasiDriver;
 import com.orasi.web.webelements.Element;
 import com.orasi.web.webelements.Link;
@@ -31,6 +34,7 @@ public class Accounts {
 	@FindBy(linkText = "Industry") private Link lnkIndustry;
 	@FindBy(linkText = "Accounts") private Link lnkAccountsTab;
 	@FindBy(xpath = "//input[@id = 'search-bar']") private Element srhBar;
+	@FindBy(xpath = "//a[contains(text(), 'Account Name')]") private Link lnkaccountName;
 	
 	/**Constructor**/
 	public Accounts(OrasiDriver driver){
@@ -47,19 +51,18 @@ public class Accounts {
 	 */
 	public void click_accounts_tab(String username)
 	{
-		try
-		{
+//		try
+//		{
 			if (lnkAccountsTab.isDisplayed() == true)
 			{
 				System.out.println(username +" has account permissions");
 				lnkAccountsTab.click();
 			}
-		}
-		catch(NoSuchElementException e)
-		{
-			System.out.println("User does not have account permissions");
-		}
-		
+//		}
+//		catch(NoSuchElementException e)
+//		{
+//			System.out.println(username + " does not have account permissions");
+//		}
 	}
 	
 	
@@ -157,7 +160,30 @@ public class Accounts {
 		}
 		else
 			System.out.println("srhBar is not found. ");
+	}
 	
+	
+	/*
+	 * Click on the account name link
+	 * --Sorts the column by name 
+	 * author: Daniel Smith
+	 */
+	public void sort_by_accountName()
+	{
+		try
+		{
+			if(lnkaccountName.isDisplayed() == true)
+			{
+				lnkaccountName.click();
+				System.out.println("Column sorted by name. " );
+			}
+			else
+				System.out.println("Account name column not found.");
+		}
+		catch(NoSuchElementException e)
+		{
+			//TestReporter.log("No such element in account name sort " + e.getMessage());
+		}
 	}
 	
 }

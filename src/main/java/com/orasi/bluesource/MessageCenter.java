@@ -16,8 +16,8 @@ public class MessageCenter {
 	private OrasiDriver driver = null;
 	
 	/**Page Elements**/
-	@FindBy(xpath = "//div[@id='notification_modal']//div/div") private Element elePopOver;
-	@FindBy(xpath = "//*[@id='notification_modal']/div/div/div[1]/button") private Element elmClose;
+	@FindBy(xpath = "//h4[contains(text(), 'Message Center')]") private Label lblPopOver;
+	@FindBy(xpath = "//*[@id='notification_modal']/div/div/div[1]/button") private Button btnClose;
 	@FindBy(xpath = "/html/body/header/div/nav/ul/li[3]") private Link lblMessageCenterTab;
 	@FindBy(xpath = "/html/body/header/div/nav/ul/li[2]/a") private Link lblotherMessageCenterTab;
 	@FindBy(linkText = "Admin") private Label lblAdminTab;
@@ -41,7 +41,7 @@ public class MessageCenter {
 	 * @author Paul
 	 */
 	public boolean messageCenterIsLoaded(){
-		return elePopOver.isDisplayed();		
+		return lblPopOver.isDisplayed();		
 	}
 	
 	/**
@@ -52,12 +52,11 @@ public class MessageCenter {
 		boolean messageCenterIsLoaded = messageCenterIsLoaded();
     	
     	if (messageCenterIsLoaded){
-    		elmClose.click();
+    		btnClose.click();
     	}
 	}
 	
 	/*
-	 * MessageCenter try / catch statement to 
 	 * Checking that the messageCenter popOver is present
 	 * if present close the messageCenter
 	 * else print to user that the center is not present
@@ -65,13 +64,13 @@ public class MessageCenter {
 	 */
 	public void check_if_messageCenter_Open() throws InterruptedException
 	{
-		boolean modal_open = elePopOver.isDisplayed();
+		Thread.sleep(500);
 		
-		Thread.sleep(1000);
+		boolean modal_open = lblPopOver.isDisplayed();
 		
 		if (modal_open == true)
 		   {
-		   		elmClose.click();
+		   		btnClose.click();
 		   		System.out.println("Message center has been closed");
 		   }
 		else
