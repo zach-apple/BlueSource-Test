@@ -186,4 +186,20 @@ public class Accounts {
 		}
 	}
 	
+	
+	/*
+	 * Select an account from the table
+	 * author: Daniel Smith
+	 */
+	public void accountName_Select(String accountName)
+	{
+		int getRowNumber;
+		
+		if(tblAccounts.isDisplayed() == true)
+		{
+			getRowNumber = tblAccounts.getRowWithCellText(accountName);
+			tblAccounts.clickCell(getRowNumber, 0);
+		}
+	}
+	
 }
