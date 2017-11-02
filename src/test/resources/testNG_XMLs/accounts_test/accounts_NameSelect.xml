@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="CRM_POC" parallel="methods" thread-count="1" data-provider-thread-count="1">
+
+	<listeners>
+		<listener class-name="com.orasi.utils.listeners.TestListener" />
+	</listeners>
+	<parameter name="browserUnderTest" value="chrome" />
+	<parameter name="environment" value="Temp" />
+	<parameter name="runLocation" value="local" />
+	<parameter name="browserVersion" value="" />
+	<parameter name="operatingSystem" value="WINDOWS" />
+
+ 	<test name="BSPOC" parallel="methods" thread-count="5">
+
+		<classes>
+			<class name="com.bluesource.accounts.accounts_accountName_select" />
+		</classes>
+	</test> 
+</suite> <!-- Suite -->
