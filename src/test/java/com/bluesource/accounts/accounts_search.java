@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 import com.orasi.bluesource.Accounts;
 import com.orasi.bluesource.LoginPage;
 import com.orasi.bluesource.MessageCenter;
+import com.orasi.utils.TestReporter;
 import com.orasi.utils.dataProviders.ExcelDataProvider;
 import com.orasi.web.WebBaseTest;
 
@@ -80,7 +81,8 @@ public class accounts_search extends WebBaseTest{
 	    	}
 	    	catch(WebDriverException e)
 	    	{
-	    		System.out.println("Error message: " + e.getMessage());
+	    		System.out.println(username + " does not have accounter permissions");
+	    		TestReporter.log("Accounts_search test " + e.getMessage());
 	    	}
 	    	
 	    }
