@@ -21,14 +21,15 @@ public class Employees {
 	private ResourceBundle userCredentialRepo = ResourceBundle.getBundle(Constants.USER_CREDENTIALS_PATH);
 	
 	/**Page Elements**/
-	@FindBy(xpath = "//*[@id='all-content']/div[3]/div/div[2]/button") private Button btnAdd;
-	@FindBy(name = "commit") private Button btnCreateEmployee;
+	@FindBy(xpath = "//button[@data-target='#modal_1']") private Button btnAdd;
+	@FindBy(xpath = "//input[@value='Create Employee']") private Button btnCreateEmployee;
 	@FindBy(id = "employee_username") private Textbox txtEmployeeUsername;
 	@FindBy(id = "employee_first_name") private Textbox txtEmployeeFirst;
 	@FindBy(id = "employee_last_name") private Textbox txtEmployeeLast;
 	@FindBy(xpath = "//*[@id='resource-content']/div[1]/table") private Webtable tblEmployees;
 	@FindBy(tagName = "p") private Label lblAmountInTable;
 	@FindBy(xpath = "//*[@id='accordion']/div/div[3]/h4/a") private Button btnManage;
+	@FindBy(xpath = "//div//input[@id='search-bar']") private Textbox txtEmployeeSearch;
 		
 	/**Constructor**/
 	public Employees(OrasiDriver driver){
@@ -37,11 +38,16 @@ public class Employees {
 	}
 
 	/**Page Interactions**/
+	public void employeeSearch(String strSearch){
+		txtEmployeeSearch.set(strSearch);
+	}
+	
 	/**
 	 * This method clicks the Add Employees page
 	 * @author Paul
 	 */
 	public void clickAddEmployee() {
+		btnAdd.syncEnabled(5,true);
 		btnAdd.click();		
 	}
 	
@@ -58,7 +64,7 @@ public class Employees {
 		completeRequiredFields(username,firstname,lastname);
 		
 		//click Create Employee
-		createEmployee();
+		clickCreateEmployee();
 	}
 	
 	/**
@@ -66,6 +72,8 @@ public class Employees {
 	 * @author Paul
 	 */
 	private void completeRequiredFields(String username,String firstname,String lastname) {
+		txtEmployeeUsername.syncEnabled(5,true);
+		
 		txtEmployeeUsername.set(username);
 		txtEmployeeFirst.set(firstname);
 		txtEmployeeLast.set(lastname);
@@ -75,7 +83,7 @@ public class Employees {
 	 * This method clicks the Create Employee button
 	 * @author Paul
 	 */
-	public void createEmployee() {
+	public void clickCreateEmployee() {
 		btnCreateEmployee.click();
 	}
 	
@@ -208,8 +216,8 @@ public class Employees {
 	
 	public void selectEmployeeByName(String strName){
 		String xpathexpression = "//a[contains(text(),'" + strName + "')]";
-		
 		Link lnkEmployee = driver.findLink(By.xpath(xpathexpression));
+		
 		lnkEmployee.focus();
 		lnkEmployee.click();
 	}
@@ -238,6 +246,17 @@ public class Employees {
 
 	public void VerifyProjectEmployeesPage() {
 		// TODO Auto-generated method stub
+		
+	}
+
+	public void CreateBasicUser(String strUserName, String strFirstName, String strLastName) {
+		clickAddEmployee();
+		
+		addEmployeeModal(strUserName, strFirstName, strLastName);
+		
+	}
+	
+	public void DeactivateUser(String strUserName){
 		
 	}
 	

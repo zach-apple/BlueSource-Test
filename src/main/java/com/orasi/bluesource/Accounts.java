@@ -11,16 +11,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.orasi.web.OrasiDriver;
+import com.orasi.web.webelements.Button;
 import com.orasi.web.webelements.Element;
 import com.orasi.web.webelements.Link;
 import com.orasi.web.webelements.Listbox;
 import com.orasi.web.webelements.Webtable;
 import com.orasi.web.webelements.impl.internal.ElementFactory;
 
-
-
 public class Accounts {
 	private OrasiDriver driver = null;
+	
 	
 	/**Page Elements**/
 	@FindBy(xpath = "//*[@id='resource-content']/div[2]/p") private Element elmNumberPages;
@@ -28,6 +28,7 @@ public class Accounts {
 	@FindBy(id = "preference_resources_per_page") private Listbox lstAccountPerPage;
 	@FindBy(linkText = "Industry") private Link lnkIndustry;
 	@FindBy(linkText = "Accounts") private Link lnkAccountsTab;
+	@FindBy(xpath = "//button[@data-target='#modal_3']") private Button btnAssignEmployee;
 	
 	/**Constructor**/
 	public Accounts(OrasiDriver driver){
@@ -133,6 +134,57 @@ public class Accounts {
 		else
 			System.out.println("Link 'Industry' not on current page");
 	
+	}
+	
+	public void clickAccountLink(String strAccount){
+		String xpathExpression;
+		xpathExpression = "//td//a[contains(text(),'" + strAccount + "')]";
+		Link lnkAccount = driver.findLink(By.xpath(xpathExpression));
+		lnkAccount.click();
+	}
+	
+	public void clickProjectLink(String strProject){
+		String xpathExpression;
+		xpathExpression = "//td//a[contains(text(),'" + strProject + "')]";
+		Link lnkProject = driver.findLink(By.xpath(xpathExpression));
+		lnkProject.syncEnabled(5,true);
+		lnkProject.click();
+	}
+	
+	public void clickSubprojectLink(String strSubProject){
+		String xpathExpression;
+		xpathExpression = "//td//a[contains(text(),'" + strSubProject + "')]";
+		Link  lnkSubProject = driver.findLink(By.xpath(xpathExpression));
+		lnkSubProject.syncEnabled(5,true);
+		lnkSubProject.click();
+	}
+	
+	public void clickRoleLink(String strRole){
+		String xpathExpression;
+		xpathExpression = "//td//a[contains(text(),'" + strRole + "')]";
+		Link lnkRole = driver.findLink(By.xpath(xpathExpression));
+		lnkRole.syncEnabled(5,true);
+		lnkRole.click();
+	}
+	
+	public void clickAssignEmployee(){
+		btnAssignEmployee.syncEnabled(5,true);
+		btnAssignEmployee.click();
+	}
+
+	public void assignEmployee(String strAccount, String strProject, String strSubProject, String strRole, String strEmployeeName) {
+		FilledRoleForm filledRoleForm = new FilledRoleForm(driver);
+		
+		clickAccountLink(strAccount);
+		
+		clickProjectLink(strProject);
+		
+		clickSubprojectLink(strSubProject);
+		
+		clickRoleLink(strRole);
+		
+		filledRoleForm.selectEmployee(strEmployeeName);
+		
 	}
 	
 	

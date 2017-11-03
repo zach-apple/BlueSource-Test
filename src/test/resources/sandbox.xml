@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="Regression" parallel="tests" thread-count="20">
+<suite name="Sandbox test" parallel="tests" thread-count="20">
 	<listeners>
 		<listener class-name="com.orasi.utils.listeners.TestListener" />
 	</listeners>
@@ -11,9 +11,9 @@
 	<parameter name="browserVersion" value="" />
 	<parameter name="operatingSystem" value="WINDOWS" />
 	
-	<test name="Edit Filled Roles from Employee Show Page" parallel="methods" thread-count="20">
+	<test name="In Progress test" parallel="methods" thread-count="20">
 		<classes>
-			<class name="com.bluesource.Employees_Project_Employees_Page_Back_Button" />
+			<class name="com.bluesource.employees.Deactivate_Employee_Verify_Future_Assignments_Destroyed" />
 		</classes>
 	</test>
 

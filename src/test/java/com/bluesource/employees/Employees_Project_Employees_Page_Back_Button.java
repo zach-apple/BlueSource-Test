@@ -3,7 +3,7 @@
  * @author: Daniel Smith
  */
 
-package com.bluesource;
+package com.bluesource.employees;
 
 import java.util.ResourceBundle;
 

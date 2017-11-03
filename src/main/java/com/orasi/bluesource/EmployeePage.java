@@ -8,21 +8,19 @@ import com.orasi.web.webelements.Checkbox;
 import com.orasi.web.webelements.Element;
 import com.orasi.web.webelements.Label;
 import com.orasi.web.webelements.Textbox;
+import com.orasi.web.webelements.Webtable;
 import com.orasi.web.webelements.impl.internal.ElementFactory;
 
 public class EmployeePage {
 	private OrasiDriver driver = null;
 		
 	/**Page Elements**/
-	@FindBy(xpath="//tr[1]//a[@class='glyphicon glyphicon-pencil']") Button btnEditFirstProject;
-	/**Edit Active Project Modal**/
-	@FindBy(xpath="//input[@id='filled_role_inherit_start_date']") Checkbox chkInheritStartDate;
-	@FindBy(xpath="//input[@id='filled_role_inherit_end_date']") Checkbox chkInheritEndDate;
-	@FindBy(xpath="//label[@for='filled_role_comments']//following-sibling::textarea") Textbox txtComments;
-	@FindBy(xpath="//input[contains(@class,'filled_role_btn')]") Button btnUpdateFilledRole;
-	@FindBy(xpath="//input[@id='filled_role_start_date']") Element eleFilledRoleStartDate;
-	@FindBy(xpath="//input[@id='filled_role_end_date']") Element eleFilledRoleEndDate;
-		
+	@FindBy(xpath = "//tr[1]//a[@class='glyphicon glyphicon-pencil']") Button btnEditFirstProject;
+	@FindBy(xpath = "//div[@id='panel_body_1']//table") Webtable tblProjectInfo;
+	@FindBy(xpath = "//button[@data-target='#modal_1']") Button btnEditGeneral;
+	@FindBy(xpath = "//div//a[contains(text(),'Deactivate Employee')]") Button btnDeactivateEmployee;
+	@FindBy(xpath = "//div[@class='panel-heading']//a[contains(text(),'Deactivate')]") Button btnDeactivate;
+	
 	/**Constructor**/
 	public EmployeePage(OrasiDriver driver){
 		this.driver = driver;
@@ -33,43 +31,44 @@ public class EmployeePage {
 	public void clickFirstEditProjectButton(){
 		btnEditFirstProject.click();
 	}
-	
-	public void checkInheritStartDate() {
-		chkInheritStartDate.check();
-	}
-	
-	public void uncheckInheritStartDate() {
-		chkInheritStartDate.uncheck();
-	}
-	
-	public void uncheckInheritEndDate() {
-		chkInheritEndDate.uncheck();
-	}
-	
-	public void addComments(String strComment) {
-		txtComments.set(strComment);
-	}
-	
-	public void addTestComments() {
-		addComments("Test Comment");
-	}
-	
-	public void clickUpdateFilledRole(){
-		btnUpdateFilledRole.click();
-	}
-	
-	public void setRoleStartDate(String strStartDate) {
-		eleFilledRoleStartDate.sendKeys(strStartDate);
-	}
-	
-	public void setRoleEndDate(String strEndDate){
-		eleFilledRoleEndDate.sendKeys(strEndDate);
-	}
-	
-	public void editActiveProjectModal(){
+
+	public boolean verifyProjectAssign(String strProject) {
+		// verify project is in project column
+		// get project column
+		Integer intColumn = tblProjectInfo.getColumnWithCellText("Project", 1);
+		Integer intRow = tblProjectInfo.getRowWithCellText(strProject, intColumn);
 		
+		if (strProject.equals(tblProjectInfo.getCellData(intRow, intColumn))) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
+	public boolean verifyStartDate(String strStartDate, String strProject) {
+		Integer intProjectColumn = tblProjectInfo.getColumnWithCellText("Project", 1);
+		Integer intProjectRow = tblProjectInfo.getRowWithCellText(strProject, intProjectColumn);
+		
+		Integer intStartDateColumn = tblProjectInfo.getColumnWithCellText("Start Date", 1);
+		
+		if (strStartDate.equals(tblProjectInfo.getCellData(intProjectRow, intStartDateColumn))){
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void editGeneralInfo() {
+		btnEditGeneral.click();
+		
+	}		
 	
+	public void clickDeactivateEmployee() {
+		btnDeactivateEmployee.click();
+	}
+	
+	public void clickDeactivate(){
+		btnDeactivate.click();
+	}
 	
 }
