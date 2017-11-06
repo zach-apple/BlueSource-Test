@@ -13,7 +13,6 @@ import com.orasi.bluesource.Accounts;
 import com.orasi.bluesource.Header;
 import com.orasi.bluesource.LoginPage;
 import com.orasi.bluesource.MessageCenter;
-import com.orasi.utils.TestEnvironment;
 import com.orasi.utils.dataProviders.ExcelDataProvider;
 import com.orasi.web.WebBaseTest;
 
@@ -51,14 +50,14 @@ public class industrySort extends WebBaseTest{
     @Test(dataProvider = "accounts_industry")
     public void sort_industry(String username, String password) throws InterruptedException
     {
+    	//Instantiate objects of the other pages needed
+    	LoginPage loginPage = new LoginPage(getDriver());
+    	MessageCenter messageCenter = new MessageCenter(getDriver());
+    	Header navAccounts = new Header(getDriver());
+    	Accounts accountPage = new Accounts(getDriver());
+    	
     	try
     	{
-	    	//Instantiate objects of the other pages needed
-	    	LoginPage loginPage = new LoginPage(getDriver());
-	    	MessageCenter messageCenter = new MessageCenter(getDriver());
-	    	Header navAccounts = new Header(getDriver());
-	    	Accounts accountPage = new Accounts(getDriver());
-	    	
 	    	//Login to the bluesource page
 	    	loginPage.LoginWithCredentials(username, password);
 	    	

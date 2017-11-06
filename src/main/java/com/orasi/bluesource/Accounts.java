@@ -1,6 +1,7 @@
 package com.orasi.bluesource;
 
 import java.lang.reflect.UndeclaredThrowableException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.lang.model.util.Elements;
@@ -200,6 +201,17 @@ public class Accounts {
 			getRowNumber = tblAccounts.getRowWithCellText(accountName);
 			tblAccounts.clickCell(getRowNumber, 0);
 		}
+	}
+	
+	
+	/*
+	 * Random accounts per page select
+	 * author: Daniel Smith
+	 */
+	public void select_accountPerPage()
+	{	
+		lstAccountPerPage.click();
+		lstAccountPerPage.selectValue("10");
 	}
 	
 }
