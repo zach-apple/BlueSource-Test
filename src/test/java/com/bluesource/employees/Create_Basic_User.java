@@ -27,7 +27,7 @@ import com.orasi.bluesource.ProjectEmployees;
 import com.orasi.bluesource.ReportedTimesSummary;
 import com.orasi.web.WebBaseTest;
 
-public class Deactivate_Employee_Verify_Future_Assignments_Destroyed extends WebBaseTest{	
+public class Create_Basic_User extends WebBaseTest{	
 	// ************* *
 	// Data Provider
 	// **************
@@ -48,7 +48,7 @@ public class Deactivate_Employee_Verify_Future_Assignments_Destroyed extends Web
 			setRunLocation(runLocation);
 			setEnvironment(environment);
 			setThreadDriver(true);
-			testStart("Deactivate_Employee_Verify_Future_Assignments_Destroyed");
+			testStart("Create_Basic_Employee");
 	}
 	
 	 @AfterMethod
@@ -57,7 +57,7 @@ public class Deactivate_Employee_Verify_Future_Assignments_Destroyed extends Web
 	    }
 	
 	 @Test//(dataProvider = "login")
-	 public void Deactivate_Employee_Verify_Future_Assignments_Destroyed()
+	 public void Create_Basic_Employee()
 	 {
 		 LoginPage loginPage = new LoginPage(getDriver());
 		 MessageCenter messageCenter = new MessageCenter(getDriver());
@@ -89,56 +89,11 @@ public class Deactivate_Employee_Verify_Future_Assignments_Destroyed extends Web
 		 String strSubProject = "SubProject3";
 		 String strRole = "Role2";
 		 				 
-		 //employees.CreateBasicUser(strUserName, strFirstName, strLastName);
-		 
-		 //4.  Go to the Accounts tab and and assign employee to a project with user start date in the future but less than expected end date for the project
-		 header.navigateAccounts();
-		  
-		 accounts.clickAccountLink(strAccount);
-			
-		 accounts.clickProjectLink(strProject);
-			
-		 accounts.clickSubprojectLink(strSubProject);
-			
-		 accounts.clickRoleLink(strRole);
-		 
-		 accounts.clickAssignEmployee();
-		 
-		 filledRoleForm.selectEmployee("Joseph Ward");
-		 //filledRoleForm.selectEmployee(person.getFullName());
-		 
-		 filledRoleForm.uncheckInheritStartDate();
-		 		 
-		 filledRoleForm.setRoleStartDate(strStartDate);
-		 
-		 filledRoleForm.clickUpdateFilledRole();
-		 
-		 //5.  Under Employee tab, go to your user profile and verify employee project info is updated and shows start and end dates
-		 header.navigateEmployees();
+		 employees.CreateBasicUser(strUserName, strFirstName, strLastName);
 		 
 		 employees.employeeSearch(strFullName);
 		 
-		 employees.selectEmployeeByName(strFullName);
-		 
-		 employeePage.verifyProjectAssign(strSubProject);
-		 
-		 employeePage.verifyStartDate(strStartDate,strSubProject);
-		 
-		 //6.  Deactivate the newly created user in general info. Verify that that the deactivation message states that user will be deleted from project
-		 header.navigateEmployees();
-		 
-		 employees.selectEmployeeByName(strFullName);
-		 
-		 employeePage.editGeneralInfo();
-		 
-		 employeePage.clickDeactivateEmployee();
-		 
-		 employeePage.clickDeactivate();
-		 
-		 //7.  Under Employee tab, go to your user profile and verify that user project info is deleted, shows ""No recent projects""
-		 //8.  Under Accounts tab, bring up the project info that your user was previously assigned to and verify that the user is removed from the filled roles"
-
-		 
+		 employees.selectEmployeeByName(strLastName);
 		 
 	} 
 }

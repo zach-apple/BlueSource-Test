@@ -6,6 +6,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.FindBy;
 
 import com.orasi.web.OrasiDriver;
+import com.orasi.web.PageLoaded;
 import com.orasi.web.webelements.Button;
 import com.orasi.web.webelements.Checkbox;
 import com.orasi.web.webelements.Element;
@@ -34,9 +35,11 @@ public class FilledRoleForm {
 
 	/**Page Interactions**/	
 	public void setEmployeeSearch(String strText){
+		txtEmployeeSearch.syncEnabled(5,true);
 		txtEmployeeSearch.set(strText);
 	}
 	public void clickSelectEmployee(){
+		eleSelectEmployee.syncEnabled(5,true);
 		eleSelectEmployee.click();
 	}
 	
@@ -45,6 +48,7 @@ public class FilledRoleForm {
 	}
 	
 	public void uncheckInheritStartDate() {
+		chkInheritStartDate.syncEnabled(5,true);
 		chkInheritStartDate.uncheck();
 	}
 	
@@ -85,6 +89,7 @@ public class FilledRoleForm {
 		clickSelectEmployee();
 		setEmployeeSearch(strEmployee);
 		txtEmployeeSearch.sendKeys(Keys.ENTER);
+		PageLoaded.isDomComplete(driver,5);
 		
 	}
 }

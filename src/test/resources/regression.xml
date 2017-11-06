@@ -16,6 +16,10 @@
 			<class name="com.bluesource.Employees_Project_Employees_Page_Back_Button" />
 		</classes>
 	</test>
-
 	
+	<test name="Create Basic Employee" parallel="methods" thread-count="20">
+		<classes>
+			<class name="com.bluesource.Create_Basic_User" />
+		</classes>
+	</test>
 </suite> <!-- Suite -->

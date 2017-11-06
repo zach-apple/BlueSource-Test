@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.orasi.web.OrasiDriver;
+import com.orasi.web.PageLoaded;
 import com.orasi.web.webelements.Button;
 import com.orasi.web.webelements.Element;
 import com.orasi.web.webelements.Link;
@@ -29,6 +30,7 @@ public class Accounts {
 	@FindBy(linkText = "Industry") private Link lnkIndustry;
 	@FindBy(linkText = "Accounts") private Link lnkAccountsTab;
 	@FindBy(xpath = "//button[@data-target='#modal_3']") private Button btnAssignEmployee;
+	@FindBy(xpath = "//div[@id='panel_body_1']//table") private Webtable tblProjects;
 	
 	/**Constructor**/
 	public Accounts(OrasiDriver driver){
@@ -144,11 +146,18 @@ public class Accounts {
 	}
 	
 	public void clickProjectLink(String strProject){
-		String xpathExpression;
+		/*String xpathExpression;
 		xpathExpression = "//td//a[contains(text(),'" + strProject + "')]";
 		Link lnkProject = driver.findLink(By.xpath(xpathExpression));
 		lnkProject.syncEnabled(5,true);
-		lnkProject.click();
+		lnkProject.click();*/
+		
+		// verify project is in project column
+		// get project column
+		Integer intColumn = 1;
+		Integer intRow = tblProjects.getRowWithCellText(strProject, intColumn);
+		tblProjects.findElement(By.linkText(strProject)).click();
+		//tblProjects.clickCell(intRow, intColumn);
 	}
 	
 	public void clickSubprojectLink(String strSubProject){
@@ -165,6 +174,7 @@ public class Accounts {
 		Link lnkRole = driver.findLink(By.xpath(xpathExpression));
 		lnkRole.syncEnabled(5,true);
 		lnkRole.click();
+		PageLoaded.isDomComplete(driver, 5);
 	}
 	
 	public void clickAssignEmployee(){
