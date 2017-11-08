@@ -31,6 +31,7 @@ public class Accounts {
 	/**Page Elements**/
 	@FindBy(xpath = "//*[@id='resource-content']/div[2]/p") private Element elmNumberPages;
 	@FindBy(tagName = "tbody") private Webtable tblAccounts;
+	@FindBy(linkText = "Account1") private Link lnkAccountTable;
 	@FindBy(id = "preference_resources_per_page") private Listbox lstAccountPerPage;
 	@FindBy(linkText = "Industry") private Link lnkIndustry;
 	@FindBy(linkText = "Accounts") private Link lnkAccountsTab;
@@ -190,28 +191,46 @@ public class Accounts {
 	
 	/*
 	 * Select an account from the table
+	 * Do a reporter to check that the account page is accessed
 	 * author: Daniel Smith
 	 */
 	public void accountName_Select(String accountName)
-	{
-		int getRowNumber;
-		
+	{	
 		if(tblAccounts.isDisplayed() == true)
-		{
-			getRowNumber = tblAccounts.getRowWithCellText(accountName);
-			tblAccounts.clickCell(getRowNumber, 0);
+		{	
+			Boolean accountLabel = lnkAccountTable.isDisplayed() == true;
+			
+			if(lnkAccountTable.isDisplayed() == true)
+			{
+				lnkAccountTable.click();
+			}
+			else
+			{
+				TestReporter.logInfo("Account 1 is not present");
+			}
+			
+			TestReporter.assertEquals(accountLabel, true, "On the " + accountName + " page");
 		}
+		
+		
 	}
 	
 	
 	/*
-	 * Random accounts per page select
+	 * Select a number for the number of accounts to be viewed 
 	 * author: Daniel Smith
 	 */
 	public void select_accountPerPage()
 	{	
-		lstAccountPerPage.click();
-		lstAccountPerPage.selectValue("10");
+		if (lstAccountPerPage.isDisplayed() == true)
+		{
+			lstAccountPerPage.syncVisible();
+			lstAccountPerPage.click();
+			lstAccountPerPage.selectValue("10");
+		}
+		else
+			System.out.println("Accounts per page element not present");
+		
 	}
 	
 }

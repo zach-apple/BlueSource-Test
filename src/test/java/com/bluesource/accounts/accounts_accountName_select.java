@@ -75,14 +75,13 @@ public class accounts_accountName_select extends WebBaseTest{
 				
 				//Click on a name of an account
 				accountpage.accountName_Select(accountName);
-				Thread.sleep(3000);
+				
 				
 			}catch(NoSuchElementException e)
-    	
+			
 			{
 				System.out.println(username + " does not have account permissions");
 			}
-    	
 		}	
 	
 	}
