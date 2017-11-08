@@ -76,7 +76,6 @@ public class accounts_accountName_select extends WebBaseTest{
 				//Click on a name of an account
 				accountpage.accountName_Select(accountName);
 				
-				
 			}catch(NoSuchElementException e)
 			
 			{
