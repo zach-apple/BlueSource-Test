@@ -72,8 +72,7 @@ public class Reporting_AccountReports_BillingByEmployee extends WebBaseTest{
 			//declare page objects
 			LoginPage loginpage = new LoginPage(getDriver());
 	    	Reporting reportingPage = new Reporting(getDriver());
-	    	MessageCenter messageCenterpage = new MessageCenter(getDriver());
-	    	
+	    		    	
 	    	//Initialize variables 
 	    	currentPage = getDriver().getCurrentUrl();
 	    	expectedPage = "http://10.238.243.127:8080/reporting/login";

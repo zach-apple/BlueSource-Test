@@ -80,7 +80,7 @@ public class Reporting {
 		
 		if(pageError == true)
 		{
-			System.out.println("Error stating: " + lblPageAlert.getText() + " for " + username);
+			System.out.print("[" + "Error stating: " + lblPageAlert.getText().trim() + "] for " + username);
 		}
 	}
 	
@@ -144,6 +144,36 @@ public class Reporting {
 		txtEndDate.set(endDate);
 		
 		//Generate report
+		btnGenReport.click();
+	}
+	
+	/*
+	 * Click the burn down link under Account Reports
+	 * @author: Daniel Smith
+	 */
+	public void click_accountReports_burndown()
+	{
+		lnkBurnDown.syncVisible();
+		lnkBurnDown.click();
+	}
+	
+	/*
+	 * click select all when choosing accounts on modal
+	 * @author: Daniel Smith
+	 */
+	public void click_selectAll_onModal()
+	{
+		lnkSelectAll.syncVisible();
+		lnkSelectAll.click();
+	}
+
+	/*
+	 * Click the generate report on modal
+	 * @author: Daniel Smith
+	 */
+	public void click_generateReport()
+	{
+		btnGenReport.syncVisible();
 		btnGenReport.click();
 	}
 	
