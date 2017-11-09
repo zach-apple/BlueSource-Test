@@ -92,11 +92,11 @@ public class reporting_accountReports_burnDown extends WebBaseTest{
     		{
     			//check for page error upon login
 		    	reportingPage.check_for_error(username);
-		    	TestReporter.log(e.getLocalizedMessage());
+		    	TestReporter.logStep(e.getLocalizedMessage());
 		    	
     		}catch(NoSuchElementException err)
     		{
-    			TestReporter.log(err.getLocalizedMessage());
+    			TestReporter.logStep(err.getLocalizedMessage());
     		}
     	}
 	}
