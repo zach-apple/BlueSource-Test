@@ -42,7 +42,7 @@ public class RadioGroupImpl extends ElementImpl implements RadioGroup {
         driver.setElementTimeout(0);
         this.radioButtons = element.findElements(By.tagName("input"));
         if (radioButtons.size() == 0) {
-            radioButtons = driver.findElements(by);
+            radioButtons = driver.findWebElements(by);
         }
         driver.setElementTimeout(timeout);
         getNumberOfRadioButtons();

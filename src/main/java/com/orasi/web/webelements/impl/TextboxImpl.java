@@ -7,6 +7,7 @@ import static com.orasi.utils.TestReporter.logTrace;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
 
 import com.orasi.web.OrasiDriver;
 import com.orasi.web.webelements.Textbox;
@@ -24,6 +25,10 @@ public class TextboxImpl extends ElementImpl implements Textbox {
 
     public TextboxImpl(OrasiDriver driver, By by) {
         super(driver, by);
+    }
+
+    public TextboxImpl(OrasiDriver driver, By by, WebElement element) {
+        super(driver, by, element);
     }
     /*
      * public TextboxImpl(OrasiDriver driver, ByNG byNg) {

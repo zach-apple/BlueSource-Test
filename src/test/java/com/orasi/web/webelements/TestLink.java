@@ -8,8 +8,8 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import com.orasi.utils.Sleeper;
 import com.orasi.web.WebBaseTest;
-import com.orasi.web.webelements.Link;
 import com.orasi.web.webelements.impl.LinkImpl;
 
 import ru.yandex.qatools.allure.annotations.Features;
@@ -90,6 +90,7 @@ public class TestLink extends WebBaseTest {
             throw new SkipException("Test not valid for Internet Explorer");
         }
         Link link = getDriver().findLink(By.xpath("//a[@href='hiddenLink.html']"));
+        Sleeper.sleep(1000);
         getDriver().findLink(By.xpath("//a[@href='testLinks.html']")).click();
         boolean valid = false;
         try {

@@ -4,6 +4,7 @@ import static com.orasi.utils.TestReporter.interfaceLog;
 import static com.orasi.utils.TestReporter.logTrace;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import com.orasi.web.OrasiDriver;
 import com.orasi.web.webelements.Link;
@@ -21,6 +22,10 @@ public class LinkImpl extends ElementImpl implements Link {
 
     public LinkImpl(OrasiDriver driver, By by) {
         super(driver, by);
+    }
+
+    public LinkImpl(OrasiDriver driver, By by, WebElement element) {
+        super(driver, by, element);
     }
 
     @Override

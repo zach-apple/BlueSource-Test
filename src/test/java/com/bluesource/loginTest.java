@@ -25,10 +25,10 @@ public class loginTest extends WebBaseTest{
 	// ************* *
 	// Data Provider
 	// **************
-	@DataProvider(name = "login", parallel=true)
+	/*@DataProvider(name = "login", parallel=true)
 	public Object[][] scenarios() {
-	return new ExcelDataProvider("/testdata/blueSource_Users.xlsx", "Sheet1").getTestData();
-	}
+	return new ExcelDataProvider("/excelsheets/blueSource_Users.xlsx", "Data").getTestData();
+	}*/
 			
 	@BeforeMethod
 	@Parameters({ "runLocation", "browserUnderTest", "browserVersion",
@@ -50,17 +50,18 @@ public class loginTest extends WebBaseTest{
 	    	endTest("TestAlert", testResults);
 	    }
 	
-	 @Test(dataProvider = "login")
-	 public void login_test(String username, String password)
+	 @Test//(dataProvider = "login")
+	 public void login_test()
 	 {
 		 LoginPage loginPage = new LoginPage(getDriver());
 		 
 		 try
 		 {
-			 loginPage.LoginWithCredentials(username, password);
+			 loginPage.AdminLogin();
+			 //loginPage.LoginWithCredentials(username, password);
 			 loginPage.verifyPageIsLoaded();
 			 
-			 loginPage.check_login(username);
+			 loginPage.check_login("Company.Admin");
 		 }
 		 catch(NoSuchElementException e)
 		 {

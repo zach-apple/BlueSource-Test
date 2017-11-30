@@ -2,10 +2,14 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="Core-Regression"  parallel="tests" thread-count="20">
-	<parameter name="browserUnderTest" value="chrome" />
+	<listeners>
+		<listener class-name="com.orasi.utils.listeners.CustomizedEmailableReport" />
+	</listeners>
+	
+	<parameter name="browserUnderTest" value="html" />
 	<parameter name="environment" value="blah" />
-	<parameter name="runLocation" value="sauce" />
-	<parameter name="browserVersion" value="52" />
+	<parameter name="runLocation" value="local" />
+	<parameter name="browserVersion" value="" />
 	<parameter name="operatingSystem" value="windows 10" />
     <test name="Element" parallel="methods" thread-count="10">
 		<classes>

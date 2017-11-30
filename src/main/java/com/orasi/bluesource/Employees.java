@@ -1,34 +1,35 @@
 package com.orasi.bluesource;
 
-import java.util.Collection;
+import java.util.ResourceBundle;
 
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.DataProvider;
 
+import com.orasi.utils.Constants;
 import com.orasi.utils.Sleeper;
 import com.orasi.utils.TestReporter;
 import com.orasi.web.OrasiDriver;
 import com.orasi.web.webelements.Button;
 import com.orasi.web.webelements.Label;
+import com.orasi.web.webelements.Link;
 import com.orasi.web.webelements.Textbox;
 import com.orasi.web.webelements.Webtable;
 import com.orasi.web.webelements.impl.internal.ElementFactory;
 
 public class Employees {
 	private OrasiDriver driver = null;
+	private ResourceBundle userCredentialRepo = ResourceBundle.getBundle(Constants.USER_CREDENTIALS_PATH);
 	
 	/**Page Elements**/
-	@FindBy(xpath = "//*[@id='all-content']/div[3]/div/div[2]/button") private Button btnAdd;
-	@FindBy(name = "commit") private Button btnCreateEmployee;
+	@FindBy(xpath = "//button[@data-target='#modal_1']") private Button btnAdd;
+	@FindBy(xpath = "//input[@value='Create Employee']") private Button btnCreateEmployee;
 	@FindBy(id = "employee_username") private Textbox txtEmployeeUsername;
 	@FindBy(id = "employee_first_name") private Textbox txtEmployeeFirst;
 	@FindBy(id = "employee_last_name") private Textbox txtEmployeeLast;
 	@FindBy(xpath = "//*[@id='resource-content']/div[1]/table") private Webtable tblEmployees;
 	@FindBy(tagName = "p") private Label lblAmountInTable;
 	@FindBy(xpath = "//*[@id='accordion']/div/div[3]/h4/a") private Button btnManage;
+	@FindBy(xpath = "//div//input[@id='search-bar']") private Textbox txtEmployeeSearch;
 		
 	/**Constructor**/
 	public Employees(OrasiDriver driver){
@@ -37,11 +38,16 @@ public class Employees {
 	}
 
 	/**Page Interactions**/
+	public void employeeSearch(String strSearch){
+		txtEmployeeSearch.set(strSearch);
+	}
+	
 	/**
 	 * This method clicks the Add Employees page
 	 * @author Paul
 	 */
 	public void clickAddEmployee() {
+		btnAdd.syncEnabled(5,true);
 		btnAdd.click();		
 	}
 	
@@ -58,7 +64,7 @@ public class Employees {
 		completeRequiredFields(username,firstname,lastname);
 		
 		//click Create Employee
-		createEmployee();
+		clickCreateEmployee();
 	}
 	
 	/**
@@ -66,6 +72,8 @@ public class Employees {
 	 * @author Paul
 	 */
 	private void completeRequiredFields(String username,String firstname,String lastname) {
+		txtEmployeeUsername.syncEnabled(5,true);
+		
 		txtEmployeeUsername.set(username);
 		txtEmployeeFirst.set(firstname);
 		txtEmployeeLast.set(lastname);
@@ -75,7 +83,7 @@ public class Employees {
 	 * This method clicks the Create Employee button
 	 * @author Paul
 	 */
-	public void createEmployee() {
+	public void clickCreateEmployee() {
 		btnCreateEmployee.click();
 	}
 	
@@ -130,7 +138,7 @@ public class Employees {
 		}
 		else
 		{
-			System.out.println("User is not found or invaild entry");
+			System.out.println("User is not found or invalid entry");
 		}
 		return empTable;
 	}
@@ -162,7 +170,7 @@ public class Employees {
 	 * Select an employee 
 	 * @author: Daniel Smith
 	 */
-	public void select_employee(int row, int column)
+	public void select_employee(Integer row, Integer column)
 	{
 		String message = "On the employee information page.";
 		String failMessage = "Button 'Manage' is not found\n";
@@ -179,6 +187,45 @@ public class Employees {
 		}
 	}
 	
+	public int findEmployeeInTable(String strUsername){
+		Integer intRow = null;
+		String strLastName = strUsername.substring(strUsername.indexOf(".") + 1);
+		
+		//find row of lastname
+		//intRow = tblEmployees.getRowWithCellText(strLastName);
+		for (int i = 1; i < tblEmployees.getRowCount(); i++) {
+			if (tblEmployees.getCellData(i, 2).equalsIgnoreCase(strLastName)) {
+				intRow = i;
+				break;
+			}
+		}
+		return intRow;
+	}
+	
+	public void selectEmployeeByUsername(String strUsername){
+		//select_employee(findEmployeeInTable(strUsername),2);
+		tblEmployees.syncVisible(5,true);
+		//strUsername.replace(" ", ".");
+		String strLastName = strUsername.substring(strUsername.indexOf(".") + 1).toUpperCase();
+		String xpathexpression = "//a[contains(text(),'" + strLastName + "')]";
+		
+		Link lnkEmployee = driver.findLink(By.xpath(xpathexpression));
+		lnkEmployee.focus();
+		lnkEmployee.click();
+	}
+	
+	public void selectEmployeeByName(String strName){
+		String xpathexpression = "//a[contains(text(),'" + strName + "')]";
+		Link lnkEmployee = driver.findLink(By.xpath(xpathexpression));
+		
+		lnkEmployee.focus();
+		lnkEmployee.click();
+	}
+	
+	public void selectProjectEmployee(){
+		selectEmployeeByUsername(userCredentialRepo.getString("PROJECT_USER"));
+	}
+		
 	/*
 	 * Checks that the add button is present on the current screen
 	 * author: Daniel Smith
@@ -195,6 +242,22 @@ public class Employees {
 		}
 		else
 			System.out.println("Error finding the add button on the current page.");
+	}
+
+	public void VerifyProjectEmployeesPage() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void CreateBasicUser(String strUserName, String strFirstName, String strLastName) {
+		clickAddEmployee();
+		
+		addEmployeeModal(strUserName, strFirstName, strLastName);
+		
+	}
+	
+	public void DeactivateUser(String strUserName){
+		
 	}
 	
 }

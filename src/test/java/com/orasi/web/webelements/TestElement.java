@@ -57,6 +57,15 @@ public class TestElement extends WebBaseTest {
 
     @Features("Element Interfaces")
     @Stories("Element")
+    @Title("clear")
+    @Test(groups = { "regression", "interfaces", "element" }, dependsOnMethods = "reload", alwaysRun = true)
+    public void findElement() {
+        Element element = getDriver().findElement(By.id("radiogroup")).findElement(By.name("sex"));
+        element.highlight();
+    }
+
+    @Features("Element Interfaces")
+    @Stories("Element")
     @Title("click")
     @Test(groups = { "regression", "interfaces", "element" }, dependsOnMethods = "clear", alwaysRun = true)
     public void click() {
@@ -119,11 +128,11 @@ public class TestElement extends WebBaseTest {
 
     /*
      * @Features("Element Interfaces")
-     * 
+     *
      * @Stories("Element")
-     * 
+     *
      * @Title("getElementLocator")
-     * 
+     *
      * @Test(groups = { "regression", "interfaces", "element" }, dependsOnMethods = "elementWired", alwaysRun = true)
      * public void getElementLocator() {
      * Element element = getDriver().findElement(By.id("text1"));
