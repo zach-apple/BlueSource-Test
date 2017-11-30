@@ -16,6 +16,7 @@ import com.orasi.bluesource.Employees;
 import com.orasi.bluesource.Header;
 import com.orasi.bluesource.LoginPage;
 import com.orasi.bluesource.MessageCenter;
+import com.orasi.utils.TestReporter;
 import com.orasi.utils.dataHelpers.personFactory.Person;
 import com.orasi.web.WebBaseTest;
 
@@ -71,7 +72,7 @@ public class Create_Basic_User extends WebBaseTest{
 		 
 		 employees.employeeSearch(strFullName);
 		 
-		 employees.selectEmployeeByName(strLastName);
+		 TestReporter.assertTrue(employees.verifyEmployeeByName(strLastName), "Ensure that Employee is found");
 		 
 	} 
 }
