@@ -1,6 +1,7 @@
 package com.orasi.web;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -275,8 +276,11 @@ public class OrasiDriver implements WebDriver, TakesScreenshot {
      * @see http://selenium.googlecode.com/git/docs/api/java/org/openqa/selenium/WebDriver.html#findElements-org.openqa.selenium.By-
      */
     @Override
-    public List<WebElement> findElements(By by) {
-        return findWebElements(by);
+    public List<Element> findElements(By by) {
+        List<WebElement> elements = driver.findElements(by);
+        List<Element> el = new ArrayList<>();
+        elements.forEach(element -> el.add(new ElementImpl(this, by, element)));
+        return el;
     }
 
     /**
@@ -303,6 +307,7 @@ public class OrasiDriver implements WebDriver, TakesScreenshot {
      * @see http://selenium.googlecode.com/git/docs/api/java/org/openqa/selenium/WebDriver.html#findElement-org.openqa.selenium.By-
      * @see http://github.com/Orasi/Chameleon/blob/master/src/main/java/com/orasi/web/webelements/impl/ElementImpl.java
      */
+    @SuppressWarnings("unchecked")
     @Override
     public Element findElement(By by) {
         return new ElementImpl(this, by);
@@ -323,6 +328,23 @@ public class OrasiDriver implements WebDriver, TakesScreenshot {
     }
 
     /**
+     * Method to find a single Textbox for a given page, using a Selenium <b><i>By</i></b> locator
+     *
+     * @param by
+     *            - Selenium <b><i>By</i></b> locator with which to locate the Textbox
+     * @return Textbox, if any, found by using the Selenium <b><i>By</i></b> locator
+     * @see http://selenium.googlecode.com/svn/trunk/docs/api/java/org/openqa/selenium/By.html
+     * @see http://selenium.googlecode.com/git/docs/api/java/org/openqa/selenium/WebDriver.html#findElement-org.openqa.selenium.By-
+     * @see http://github.com/Orasi/Chameleon/blob/master/src/main/java/com/orasi/web/webelements/impl/TextboxImpl.java
+     */
+    public List<Textbox> findTextboxes(By by) {
+        List<WebElement> elements = findWebElements(by);
+        List<Textbox> textboxes = new ArrayList<>();
+        elements.forEach(element -> textboxes.add(new TextboxImpl(this, by, element)));
+        return textboxes;
+    }
+
+    /**
      * Method to find a single Button for a given page, using a Selenium <b><i>By</i></b> locator
      *
      * @param by
@@ -334,6 +356,23 @@ public class OrasiDriver implements WebDriver, TakesScreenshot {
      */
     public Button findButton(By by) {
         return new ButtonImpl(this, by);
+    }
+
+    /**
+     * Method to find Buttons for a given page, using a Selenium <b><i>By</i></b> locator
+     *
+     * @param by
+     *            - Selenium <b><i>By</i></b> locator with which to locate the Buttons
+     * @return Button, if any, found by using the Selenium <b><i>By</i></b> locator
+     * @see http://selenium.googlecode.com/svn/trunk/docs/api/java/org/openqa/selenium/By.html
+     * @see http://selenium.googlecode.com/git/docs/api/java/org/openqa/selenium/WebDriver.html#findElement-org.openqa.selenium.By-
+     * @see http://github.com/Orasi/Chameleon/blob/master/src/main/java/com/orasi/web/webelements/impl/ButtonImpl.java
+     */
+    public List<Button> findButtons(By by) {
+        List<WebElement> elements = findWebElements(by);
+        List<Button> buttons = new ArrayList<>();
+        elements.forEach(element -> buttons.add(new ButtonImpl(this, by, element)));
+        return buttons;
     }
 
     /**
@@ -350,6 +389,13 @@ public class OrasiDriver implements WebDriver, TakesScreenshot {
         return new CheckboxImpl(this, by);
     }
 
+    public List<Checkbox> findCheckboxes(By by) {
+        List<WebElement> elements = findWebElements(by);
+        List<Checkbox> checkboxes = new ArrayList<>();
+        elements.forEach(element -> checkboxes.add(new CheckboxImpl(this, by, element)));
+        return checkboxes;
+    }
+
     /**
      * Method to find a single Label for a given page, using a Selenium <b><i>By</i></b> locator
      *
@@ -364,6 +410,13 @@ public class OrasiDriver implements WebDriver, TakesScreenshot {
         return new LabelImpl(this, by);
     }
 
+    public List<Label> findLabels(By by) {
+        List<WebElement> elements = findWebElements(by);
+        List<Label> labels = new ArrayList<>();
+        elements.forEach(element -> labels.add(new LabelImpl(this, by, element)));
+        return labels;
+    }
+
     /**
      * Method to find a single Link for a given page, using a Selenium <b><i>By</i></b> locator
      *
@@ -376,6 +429,13 @@ public class OrasiDriver implements WebDriver, TakesScreenshot {
      */
     public Link findLink(By by) {
         return new LinkImpl(this, by);
+    }
+
+    public List<Link> findLinks(By by) {
+        List<WebElement> elements = findWebElements(by);
+        List<Link> links = new ArrayList<>();
+        elements.forEach(element -> links.add(new LinkImpl(this, by, element)));
+        return links;
     }
 
     /**

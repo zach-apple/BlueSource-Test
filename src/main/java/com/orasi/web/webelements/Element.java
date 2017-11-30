@@ -104,8 +104,9 @@ public interface Element extends WebElement, WrapsElement, Locatable {
      * @return {@link WebElement}
      * @see main.java.com.orasi.core.interfaces.impl.ElementImpl#findElement()
      */
+    @SuppressWarnings("unchecked")
     @Override
-    WebElement findElement(By by);
+    Element findElement(By by);
 
     /**
      * @author Justin
@@ -115,6 +116,7 @@ public interface Element extends WebElement, WrapsElement, Locatable {
      * @return {@link List}
      * @see main.java.com.orasi.core.interfaces.impl.ElementImpl#findElements()
      */
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     List<WebElement> findElements(By by);
 

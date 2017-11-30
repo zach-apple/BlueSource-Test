@@ -101,6 +101,7 @@ public class ElementHandler implements InvocationHandler {
             logTrace("Calling method [ " + method.getName() + " ]");
             Object response = method.invoke(wrappingType.cast(thing), objects);
             logTrace("Successfully called method [ " + method.getName() + " ]");
+            logTrace("Exitting ElementHandler#invoke");
             return response;
         } catch (InvocationTargetException e) {
             // Unwrap the underlying exception

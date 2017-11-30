@@ -27,8 +27,6 @@ import com.orasi.utils.Constants;
 import com.orasi.utils.Sleeper;
 import com.orasi.utils.exception.KeyExistsException;
 import com.orasi.utils.exception.NoKeyFoundException;
-import com.orasi.web.OrasiDriver;
-import com.orasi.web.WebBaseTest;
 import com.orasi.web.by.angular.ByNG;
 import com.orasi.web.webelements.Button;
 import com.orasi.web.webelements.Checkbox;
@@ -246,7 +244,7 @@ public class TestOrasiDriver extends WebBaseTest {
     @Title("findElements")
     @Test(groups = { "regression", "utils", "orasidriver" }, dependsOnMethods = "testGetDriver")
     public void findElements() {
-        List<WebElement> elements = driver.findElements(By.tagName("input"));
+        List<Element> elements = driver.findElements(By.tagName("input"));
         Assert.assertTrue(elements.size() > 0);
     }
 
@@ -255,8 +253,18 @@ public class TestOrasiDriver extends WebBaseTest {
     @Title("findWebElements")
     @Test(groups = { "regression", "utils", "orasidriver" }, dependsOnMethods = "findElements")
     public void findWebElements() {
-        List<WebElement> elements = driver.findElements(By.tagName("input"));
+        List<WebElement> elements = driver.findWebElements(By.tagName("input"));
         Assert.assertTrue(elements.size() > 0);
+    }
+
+    @Features("Utilities")
+    @Stories("OrasiDriver")
+    @Title("findTextboxes")
+    @Test(groups = { "regression", "utils", "orasidriver" }, dependsOnMethods = "findElements")
+    public void findTextboxes() {
+        List<Textbox> elements = driver.findTextboxes(By.tagName("input"));
+        Assert.assertTrue(elements.size() > 0);
+        Assert.assertTrue(elements.get(0) instanceof Textbox);
     }
 
     @Features("Utilities")
@@ -266,6 +274,46 @@ public class TestOrasiDriver extends WebBaseTest {
     public void findButton() {
         Button button = driver.findButton(By.id("Add"));
         Assert.assertNotNull(button);
+    }
+
+    @Features("Utilities")
+    @Stories("OrasiDriver")
+    @Title("findButtons")
+    @Test(groups = { "regression", "utils", "orasidriver" }, dependsOnMethods = "findElements")
+    public void findButtons() {
+        List<Button> elements = driver.findButtons(By.tagName("input"));
+        Assert.assertTrue(elements.size() > 0);
+        Assert.assertTrue(elements.get(0) instanceof Button);
+    }
+
+    @Features("Utilities")
+    @Stories("OrasiDriver")
+    @Title("findCheckboxes")
+    @Test(groups = { "regression", "utils", "orasidriver" }, dependsOnMethods = "findElements")
+    public void findCheckboxes() {
+        List<Checkbox> elements = driver.findCheckboxes(By.tagName("input"));
+        Assert.assertTrue(elements.size() > 0);
+        Assert.assertTrue(elements.get(0) instanceof Checkbox);
+    }
+
+    @Features("Utilities")
+    @Stories("OrasiDriver")
+    @Title("findLabels")
+    @Test(groups = { "regression", "utils", "orasidriver" }, dependsOnMethods = "findElements")
+    public void findLabels() {
+        List<Label> elements = driver.findLabels(By.tagName("input"));
+        Assert.assertTrue(elements.size() > 0);
+        Assert.assertTrue(elements.get(0) instanceof Label);
+    }
+
+    @Features("Utilities")
+    @Stories("OrasiDriver")
+    @Title("findLinks")
+    @Test(groups = { "regression", "utils", "orasidriver" }, dependsOnMethods = "findElements")
+    public void findLinks() {
+        List<Link> elements = driver.findLinks(By.tagName("input"));
+        Assert.assertTrue(elements.size() > 0);
+        Assert.assertTrue(elements.get(0) instanceof Link);
     }
 
     @Features("Utilities")

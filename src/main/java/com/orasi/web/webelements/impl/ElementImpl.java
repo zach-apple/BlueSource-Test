@@ -71,6 +71,13 @@ public class ElementImpl implements Element {
         logTrace("Exiting ElementImpl#init");
     }
 
+    public ElementImpl(final OrasiDriver driver, final By by, final WebElement element) {
+        this.by = by;
+        this.driver = driver;
+        this.element = element;
+        logTrace("Exiting ElementImpl#init");
+    }
+
     /**
      * @see org.openqa.selenium.WebElement#click()
      */
@@ -224,9 +231,9 @@ public class ElementImpl implements Element {
      * @see org.openqa.selenium.WebElement#findElement(By)
      */
     @Override
-    public WebElement findElement(By by) {
+    public Element findElement(By by) {
         logTrace("Entering ElementImpl#findElement");
-        WebElement element = getWrappedElement().findElement(by);
+        Element element = new ElementImpl(this.driver,by);
         logTrace("Exiting ElementImpl#findElement");
         return element;
     }
