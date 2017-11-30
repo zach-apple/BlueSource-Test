@@ -5,9 +5,6 @@
 
 package com.bluesource.employees;
 
-import com.orasi.utils.dataHelpers.personFactory.*;
-import com.orasi.utils.date.DateTimeConversion;
-
 import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -15,27 +12,18 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.bluesource.accounts_pageLoad;
-import com.orasi.bluesource.Accounts;
-import com.orasi.bluesource.EmployeePage;
 import com.orasi.bluesource.Employees;
-import com.orasi.bluesource.FilledRoleForm;
 import com.orasi.bluesource.Header;
 import com.orasi.bluesource.LoginPage;
 import com.orasi.bluesource.MessageCenter;
-import com.orasi.bluesource.ProjectEmployees;
-import com.orasi.bluesource.ReportedTimesSummary;
+import com.orasi.utils.dataHelpers.personFactory.Person;
 import com.orasi.web.WebBaseTest;
 
 public class Create_Basic_User extends WebBaseTest{	
 	// ************* *
 	// Data Provider
 	// **************
-	/*@DataProvider(name = "login", parallel=true)
-	public Object[][] scenarios() {
-	return new ExcelDataProvider("/testdata/blueSource_Users.xlsx", "Sheet1").getTestData();
-	}*/
-			
+				
 	@BeforeMethod
 	@Parameters({ "runLocation", "browserUnderTest", "browserVersion",
 	"operatingSystem", "environment" })
@@ -63,11 +51,6 @@ public class Create_Basic_User extends WebBaseTest{
 		 MessageCenter messageCenter = new MessageCenter(getDriver());
 		 Header header = new Header(getDriver());
 		 Employees employees = new Employees(getDriver());
-		 EmployeePage employeePage = new EmployeePage(getDriver());
-		 ReportedTimesSummary reportedTimesSummary = new ReportedTimesSummary(getDriver());
-		 ProjectEmployees projectEmployees = new ProjectEmployees(getDriver());
-		 Accounts accounts = new Accounts(getDriver());
-		 FilledRoleForm filledRoleForm = new FilledRoleForm(getDriver());
 		 Person person = new Person();
 		 
 		 //1.  Open web browser and navigate to http://10.238.242.236/ to access BlueSource login page
@@ -83,12 +66,7 @@ public class Create_Basic_User extends WebBaseTest{
 		 String strLastName = person.getLastName();
 		 String strUserName = strFirstName + "." + strLastName;
 		 String strFullName = person.getFullName();
-		 String strStartDate = DateTimeConversion.getDaysOut("1", "MM/dd/yyyy");
-		 String strAccount = "Account1";
-		 String strProject = "Project2";
-		 String strSubProject = "SubProject3";
-		 String strRole = "Role2";
-		 				 
+		 		 				 
 		 employees.CreateBasicUser(strUserName, strFirstName, strLastName);
 		 
 		 employees.employeeSearch(strFullName);
