@@ -7,7 +7,7 @@
 	</listeners>
 	<parameter name="browserUnderTest" value="chrome" />
 	<parameter name="environment" value="test" />
-	<parameter name="runLocation" value="local" />
+	<parameter name="runLocation" value="grid" />
 	<parameter name="browserVersion" value="" />
 	<parameter name="operatingSystem" value="WINDOWS" />
 	
