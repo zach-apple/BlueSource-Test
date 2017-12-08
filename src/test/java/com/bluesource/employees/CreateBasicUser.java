@@ -45,7 +45,7 @@ public class CreateBasicUser extends WebBaseTest{
 	    	endTest("TestAlert", testResults);
 	    }
 	
-	 @Test//(dataProvider = "login")
+	 @Test(groups = {"smoke"} )
 	 public void Create_Basic_Employee()
 	 {
 		 LoginPage loginPage = new LoginPage(getDriver());

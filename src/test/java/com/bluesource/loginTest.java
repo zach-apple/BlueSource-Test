@@ -50,7 +50,7 @@ public class loginTest extends WebBaseTest{
 	    	endTest("TestAlert", testResults);
 	    }
 	
-	 @Test//(dataProvider = "login")
+	 @Test(groups = {"smoke"} )
 	 public void admin_login_test()
 	 {
 		 LoginPage loginPage = new LoginPage(getDriver());
