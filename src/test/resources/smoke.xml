@@ -19,7 +19,7 @@
 	
 	<test name="Create Basic User" parallel="tests" thread-count="20">
 		<classes>
-			<class name="com.bluesource.Create_Basic_User" />
+			<class name="com.bluesource.employees.Create_Basic_User" />
 		</classes>
 	</test>
 	
