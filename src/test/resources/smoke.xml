@@ -16,6 +16,7 @@
 			<class name="com.bluesource.loginTest" />
 		</classes>
 	</test>
+
 	<test name="Create User" parallel="methods" thread-count="20">
 		<classes>
 			<class name="com.bluesource.employees.CreateBasicUser" />
