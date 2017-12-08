@@ -7,15 +7,20 @@
 	</listeners>
 	<parameter name="browserUnderTest" value="chrome" />
 	<parameter name="environment" value="test" />
-	<parameter name="runLocation" value="local" />
+	<parameter name="runLocation" value="grid" />
 	<parameter name="browserVersion" value="" />
 	<parameter name="operatingSystem" value="WINDOWS" />
 	
-	<test name="Login Test" parallel="methods" thread-count="20">
+	<test name="Admin Login" parallel="tests" thread-count="20">
 		<classes>
 			<class name="com.bluesource.loginTest" />
 		</classes>
 	</test>
-
+	
+	<test name="Create Basic User" parallel="tests" thread-count="20">
+		<classes>
+			<class name="com.bluesource.employees.Create_Basic_User" />
+		</classes>
+	</test>
 	
 </suite> <!-- Suite -->

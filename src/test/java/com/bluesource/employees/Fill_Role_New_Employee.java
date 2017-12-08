@@ -85,8 +85,8 @@ public class Fill_Role_New_Employee extends WebBaseTest{
 		 String strFullName = person.getFullName();
 		 String strStartDate = DateTimeConversion.getDaysOut("1", "MM/dd/yyyy");
 		 String strAccount = "Account1";
-		 String strProject = "Project2";
-		 String strSubProject = "SubProject3";
+		 String strProject = "Project1";
+		 String strSubProject = "SubProject1";
 		 String strRole = "Role2";
 		 				 
 		 employees.CreateBasicUser(strUserName, strFirstName, strLastName);
@@ -117,7 +117,7 @@ public class Fill_Role_New_Employee extends WebBaseTest{
 		 
 		 employees.employeeSearch(strFullName);
 		 
-		 employees.selectEmployeeByName(strFullName);
+		 employees.selectEmployeeByName(strLastName);
 		 
 		 employeePage.verifyProjectAssign(strSubProject);
 		 
