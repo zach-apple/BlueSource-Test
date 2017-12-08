@@ -16,6 +16,11 @@
 			<class name="com.bluesource.loginTest" />
 		</classes>
 	</test>
-
+	
+	<test name="Create Basic User" parallel="tests" thread-count="20">
+		<classes>
+			<class name="com.bluesource.Create_Basic_User" />
+		</classes>
+	</test>
 	
 </suite> <!-- Suite -->
