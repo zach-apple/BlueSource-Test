@@ -255,7 +255,7 @@ public class Accounts {
 		
 		clickCreateAccount();
 		
-		clickAccountLink(strAccountName);
+		//clickAccountLink(strAccountName);
 		
 		
 		

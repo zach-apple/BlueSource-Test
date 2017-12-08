@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="Regression" parallel="tests" thread-count="20">
+<suite name="Smoke" parallel="tests" thread-count="20">
 	<listeners>
 		<listener class-name="com.orasi.utils.listeners.TestListener" />
 	</listeners>
@@ -11,15 +11,19 @@
 	<parameter name="browserVersion" value="" />
 	<parameter name="operatingSystem" value="WINDOWS" />
 	
-	<test name="Admin Login" parallel="tests" thread-count="20">
+	<test name="Login Test" parallel="methods" thread-count="20">
 		<classes>
 			<class name="com.bluesource.loginTest" />
 		</classes>
 	</test>
-	
-	<test name="Create Basic User" parallel="tests" thread-count="20">
+	<test name="Create User" parallel="methods" thread-count="20">
 		<classes>
-			<class name="com.bluesource.employees.Create_Basic_User" />
+			<class name="com.bluesource.employees.CreateBasicUser" />
+		</classes>
+	</test>
+	<test name="Create Account" parallel="methods" thread-count="20">
+		<classes>
+			<class name="com.bluesource.accounts.CreateAccount" />
 		</classes>
 	</test>
 	

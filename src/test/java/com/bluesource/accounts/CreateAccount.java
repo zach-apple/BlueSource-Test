@@ -50,7 +50,7 @@ public class CreateAccount extends WebBaseTest{
     	endTest("TestAlert", testResults);
     }
     
-    @Test//(dataProvider = "accounts_industry")
+    @Test(groups = {"smoke"} )
     public void createAccount(){
     	LoginPage loginPage = new LoginPage(getDriver());
     	Header header = new Header(getDriver());
@@ -63,6 +63,8 @@ public class CreateAccount extends WebBaseTest{
     	PageLoaded.isDomComplete(getDriver(), 5);
     	
     	String strAccountName = accounts.createAccount();
+    	
+    	PageLoaded.isDomComplete(getDriver(), 5);
     	
     	TestReporter.assertTrue(accounts.verifyAccountLink(strAccountName), "Verify Account name displayed in the table.");
     }
