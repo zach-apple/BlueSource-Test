@@ -10,12 +10,15 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.orasi.utils.Randomness;
+import com.orasi.utils.TestReporter;
 import com.orasi.web.OrasiDriver;
 import com.orasi.web.PageLoaded;
 import com.orasi.web.webelements.Button;
 import com.orasi.web.webelements.Element;
 import com.orasi.web.webelements.Link;
 import com.orasi.web.webelements.Listbox;
+import com.orasi.web.webelements.Textbox;
 import com.orasi.web.webelements.Webtable;
 import com.orasi.web.webelements.impl.internal.ElementFactory;
 
@@ -31,6 +34,10 @@ public class Accounts {
 	@FindBy(linkText = "Accounts") private Link lnkAccountsTab;
 	@FindBy(xpath = "//button[@data-target='#modal_3']") private Button btnAssignEmployee;
 	@FindBy(xpath = "//div[@id='panel_body_1']//table") private Webtable tblProjects;
+	@FindBy(xpath = "//button[@data-target='#modal_1']") private Button btnAddAccount;
+	@FindBy(xpath = "//input[@id='account_name']") private Textbox txtAccountName;
+	@FindBy(xpath = "//select[@id='account_industry_id']") private Listbox lstIndustry;
+	@FindBy(xpath = "//input[@value='Create Account']") private Button btnCreateAccount;
 	
 	/**Constructor**/
 	public Accounts(OrasiDriver driver){
@@ -157,7 +164,19 @@ public class Accounts {
 		Integer intColumn = 1;
 		Integer intRow = tblProjects.getRowWithCellText(strProject, intColumn);
 		tblProjects.findElement(By.linkText(strProject)).click();
+		
 		//tblProjects.clickCell(intRow, intColumn);
+	}
+	
+	public Element verifyProjectLink(String strProject){
+		Integer intColumn = 1;
+		Integer intRow = tblProjects.getRowWithCellText(strProject, intColumn);
+		
+		tblProjects.findElement(By.linkText(strProject)).click();
+		Element eleProject = tblProjects.findElement(By.linkText(strProject));
+		
+		return eleProject;
+		
 	}
 	
 	public void clickSubprojectLink(String strSubProject){
@@ -197,5 +216,51 @@ public class Accounts {
 		
 	}
 	
+	public void clickAddAccount(){
+		btnAddAccount.click();
+	}
+	
+	public void setAccountNameTextbox(String strAccountName){
+		txtAccountName.set(strAccountName);
+	}
+	
+	public void selectIndustry(String strIndustry){
+		lstIndustry.select(strIndustry);
+	}
+	
+	public void clickCreateAccount(){
+		btnCreateAccount.click();
+	}
+	
+	public boolean verifyAccountLink(String strAccountName){
+		String xpathExpression;
+		
+		xpathExpression = "//td//a[contains(text(),'" + strAccountName + "')]";
+		
+		Link lnkAccount = driver.findLink(By.xpath(xpathExpression));
+		
+		return lnkAccount.isDisplayed();
+	}
+	
+	public String createAccount(){
+		clickAddAccount();
+		
+		PageLoaded.isDomComplete(driver, 5);
+		
+		String strAccountName = Randomness.randomAlphaNumeric(10);
+		
+		setAccountNameTextbox(strAccountName);
+		
+		selectIndustry("Other");
+		
+		clickCreateAccount();
+		
+		clickAccountLink(strAccountName);
+		
+		
+		
+		return strAccountName;
+		
+	}
 	
 }

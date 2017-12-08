@@ -259,5 +259,15 @@ public class Employees {
 	public void DeactivateUser(String strUserName){
 		
 	}
+
+	public boolean verifyEmployeeByName(String strName) {
+		String xpathexpression = "//a[contains(text(),'" + strName + "')]";
+		Link lnkEmployee = driver.findLink(By.xpath(xpathexpression));
+		
+		lnkEmployee.focus();
+		boolean blnFoundEmployee = lnkEmployee.isDisplayed();
+		return blnFoundEmployee;
+		
+	}
 	
 }

@@ -23,3 +23,5 @@ public interface Link extends Element {
 
     public String getURL();
 }
+
+

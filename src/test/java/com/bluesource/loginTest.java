@@ -51,7 +51,7 @@ public class loginTest extends WebBaseTest{
 	    }
 	
 	 @Test//(dataProvider = "login")
-	 public void login_test()
+	 public void admin_login_test()
 	 {
 		 LoginPage loginPage = new LoginPage(getDriver());
 		 
