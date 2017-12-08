@@ -13,7 +13,7 @@
 	
 	<test name="In Progress test" parallel="methods" thread-count="20">
 		<classes>
-			<class name="com.bluesource.employees.Create_Basic_User" />
+			<class name="com.bluesource.accounts.CreateAccount" />
 		</classes>
 	</test>
 

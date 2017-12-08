@@ -17,7 +17,7 @@ import com.orasi.utils.TestEnvironment;
 import com.orasi.utils.dataProviders.ExcelDataProvider;
 import com.orasi.web.WebBaseTest;
 
-public class industrySort extends WebBaseTest{
+public class IndustrySort extends WebBaseTest{
 
 
 	// ************* *

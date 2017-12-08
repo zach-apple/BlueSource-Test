@@ -25,6 +25,7 @@ import com.orasi.web.webelements.impl.internal.ImplementedBy;
 @ImplementedBy(ElementImpl.class)
 public interface Element extends WebElement, WrapsElement, Locatable {
 
+	
     /**
      * @author Justin
      * @see main.java.com.orasi.core.interfaces.impl.ElementImpl#clear()

@@ -20,7 +20,7 @@ import com.orasi.utils.TestReporter;
 import com.orasi.utils.dataHelpers.personFactory.Person;
 import com.orasi.web.WebBaseTest;
 
-public class Create_Basic_User extends WebBaseTest{	
+public class CreateBasicUser extends WebBaseTest{	
 	// ************* *
 	// Data Provider
 	// **************
