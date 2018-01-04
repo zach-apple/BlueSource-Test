@@ -38,6 +38,7 @@ public class Accounts {
 	@FindBy(xpath = "//input[@id='account_name']") private Textbox txtAccountName;
 	@FindBy(xpath = "//select[@id='account_industry_id']") private Listbox lstIndustry;
 	@FindBy(xpath = "//input[@value='Create Account']") private Button btnCreateAccount;
+	@FindBy(xpath = "//*[@id=\"accordion\"]/div/div[5]/div/button[2]") private Button btnEditAccount;
 	
 	/**Constructor**/
 	public Accounts(OrasiDriver driver){
@@ -261,6 +262,38 @@ public class Accounts {
 		
 		return strAccountName;
 		
+	}
+	
+	/**
+	 * This method checks if the add account button is displayed.
+	 * @return boolean
+	 * @author Darryl Papke
+	 */
+	public boolean verifyAddButtonIsVisible() {
+		try {
+			btnAddAccount.isDisplayed();
+			return true;
+		}
+		catch (NoSuchElementException e) {
+			return false;	
+		}
+	
+	}
+	
+	/**
+	 * This method checks if the edit account button is displayed.
+	 * @return boolean
+	 * @author Darryl Papke
+	 */
+	public boolean verifyEditButtonIsVisible() {
+		try {
+			btnEditAccount.isDisplayed();
+			return true;
+		}
+		catch (NoSuchElementException e) {
+			return false;	
+		}
+
 	}
 	
 }

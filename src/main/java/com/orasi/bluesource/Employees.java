@@ -3,17 +3,21 @@ package com.orasi.bluesource;
 import java.util.ResourceBundle;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 
 import com.orasi.utils.Constants;
 import com.orasi.utils.Sleeper;
 import com.orasi.utils.TestReporter;
 import com.orasi.web.OrasiDriver;
 import com.orasi.web.webelements.Button;
+import com.orasi.web.webelements.Element;
 import com.orasi.web.webelements.Label;
 import com.orasi.web.webelements.Link;
 import com.orasi.web.webelements.Textbox;
 import com.orasi.web.webelements.Webtable;
+
 import com.orasi.web.webelements.impl.internal.ElementFactory;
 
 public class Employees {
@@ -30,7 +34,9 @@ public class Employees {
 	@FindBy(tagName = "p") private Label lblAmountInTable;
 	@FindBy(xpath = "//*[@id='accordion']/div/div[3]/h4/a") private Button btnManage;
 	@FindBy(xpath = "//div//input[@id='search-bar']") private Textbox txtEmployeeSearch;
-		
+	@FindBy(xpath = "//*[@id=\"employee_account_permission\"]") private Element elePermission;
+	@FindBy(xpath = "/html/body/header/div/nav/ul/li[10]/a") private Button btnLogout;
+	
 	/**Constructor**/
 	public Employees(OrasiDriver driver){
 		this.driver = driver;
@@ -267,6 +273,33 @@ public class Employees {
 		lnkEmployee.focus();
 		boolean blnFoundEmployee = lnkEmployee.isDisplayed();
 		return blnFoundEmployee;
+		
+	}
+	
+	/**
+	 * Checks that a given option is selectable in the Account Permission drop down
+	 * in the add employee page.
+	 * @param option
+	 * @author Darryl Papke
+	 */
+	public boolean checkAccountPermissionOption(String option) {
+		Select accountPermission = new Select(elePermission);
+		try{
+			accountPermission.selectByVisibleText(option);
+			return true;
+		}
+		catch (NoSuchElementException e){
+			return false;
+		}
+			
+	}
+	
+	/**
+	 * This method will logout the current user.
+	 * @author Darryl Papke
+	 */
+	public void clickLogout() {
+		btnLogout.click();
 		
 	}
 	
