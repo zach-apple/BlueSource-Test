@@ -12,12 +12,12 @@ import com.orasi.bluesource.Employees;
 import com.orasi.bluesource.Header;
 import com.orasi.bluesource.LoginPage;
 import com.orasi.utils.TestReporter;
-import com.orasi.web.PageLoaded;
+import com.orasi.utils.dataHelpers.personFactory.Person;
 import com.orasi.web.WebBaseTest;
 
 public class AccountViewerRole extends WebBaseTest {
 	
-	// ************* *
+	// **************
 	// Data Provider
 	// **************
 	/*@DataProvider(name = "accounts_industry", parallel=true)
@@ -47,30 +47,42 @@ public class AccountViewerRole extends WebBaseTest {
     
     @Test(groups = {"smoke"} )
     public void accountViewerRole() {
-    	LoginPage loginPage = new LoginPage(getDriver());
+    	Person person = new Person();
     	Header header = new Header(getDriver());
-    	Employees employees = new Employees(getDriver());
     	Accounts accounts = new Accounts(getDriver());
-
+    	LoginPage loginPage = new LoginPage(getDriver());
+    	Employees employees = new Employees(getDriver());
+    	
+    	TestReporter.logStep("Test started");
+    	
+    	TestReporter.logStep("Login to application");
     	loginPage.AdminLogin();
+    	
+    	TestReporter.logStep("Go to the Employees page to add a new employee");
     	header.navigateEmployees();
-    	PageLoaded.isDomComplete(getDriver(), 5);
     	employees.clickAddEmployee();
-    	TestReporter.assertTrue(employees.checkAccountPermissionOption("Account Viewer"), "Account Viewer is an option");
+    	
+    	TestReporter.logStep("Test that Account Viewer is an option in the Account Permission dropdown");
+    	TestReporter.assertTrue(employees.checkAccountPermissionOption("Account Viewer"), "Checked that Account Viewer is an option and selects it.");
 
-    	String first = "Jane";
-    	String last = "Doe";
-    	String user = first + last;
-    	String password = "123";
+    	TestReporter.logStep("Add a new employee using the Person class");
+    	employees.addEmployeeModal(person);
+    	header.navigateLogout();
     	
-    	employees.addEmployeeModal(user, first, last);
-    	employees.clickLogout();
-    	loginPage.LoginWithCredentials(user, password);
+    	TestReporter.logStep("Login as the new employee");
+    	loginPage.LoginWithCredentials(person.getUsername(), person.getPassword());
+    	
+    	TestReporter.logStep("Go to the Accounts page");
     	header.navigateAccounts();
-    	TestReporter.assertFalse(accounts.verifyAddButtonIsVisible(), "Add Account button is not present");
     	
-    	accounts.clickAccountLink("Account1");
-    	TestReporter.assertFalse(accounts.verifyEditButtonIsVisible(), "Edit Account button is not present");
+    	TestReporter.logStep("Test that the add account button is not present");
+    	TestReporter.assertFalse(accounts.verifyAddButtonIsVisible(), "Checked that the Add Account button is not present.");
+    	
+    	TestReporter.logStep("Go to an account");
+    	accounts.clickFirstAccountLink();
+    	
+    	TestReporter.logStep("Test that the edit account button is not present");
+    	TestReporter.assertFalse(accounts.verifyEditButtonIsVisible(), "Checked that the Edit Account button is not present.");
     	
     }
 
