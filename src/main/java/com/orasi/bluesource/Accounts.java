@@ -6,9 +6,13 @@ import java.util.List;
 import javax.lang.model.util.Elements;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.orasi.utils.Randomness;
 import com.orasi.utils.TestReporter;
@@ -39,7 +43,7 @@ public class Accounts {
 	@FindBy(xpath = "//select[@id='account_industry_id']") private Listbox lstIndustry;
 	@FindBy(xpath = "//input[@value='Create Account']") private Button btnCreateAccount;
 	@FindBy(xpath = "//*[@id=\"accordion\"]/div/div[5]/div/button[2]") private Button btnEditAccount;
-	
+
 	/**Constructor**/
 	public Accounts(OrasiDriver driver){
 		this.driver = driver;
@@ -258,42 +262,40 @@ public class Accounts {
 		
 		//clickAccountLink(strAccountName);
 		
-		
-		
 		return strAccountName;
 		
 	}
 	
 	/**
-	 * This method checks if the add account button is displayed.
-	 * @return boolean
+	 * Checks if the add account button is visible.
+	 * 
+	 * @return <code>true</code> if the add account button is visible, 
+	 * 		   <code>false</code> otherwise.
 	 * @author Darryl Papke
 	 */
 	public boolean verifyAddButtonIsVisible() {
-		try {
-			btnAddAccount.isDisplayed();
-			return true;
-		}
-		catch (NoSuchElementException e) {
-			return false;	
-		}
-	
+		return btnAddAccount.syncVisible(3, false);
 	}
 	
 	/**
-	 * This method checks if the edit account button is displayed.
-	 * @return boolean
+	 * Checks if the edit account button is visible.
+	 * 
+	 * @return <code>true</code> if the edit account button is visible, 
+	 * 		   <code>false</code> otherwise.
 	 * @author Darryl Papke
 	 */
 	public boolean verifyEditButtonIsVisible() {
-		try {
-			btnEditAccount.isDisplayed();
-			return true;
-		}
-		catch (NoSuchElementException e) {
-			return false;	
-		}
-
+		return btnEditAccount.syncVisible(3, false);
+	}
+	
+	/**
+	 * Clicks the first account link in the accounts table.
+	 * 
+	 * @author Darryl Papke
+	 */
+	public void clickFirstAccountLink() {
+		tblAccounts.getCell(2, 1).findElement(By.cssSelector("a[class='ng-binding']")).click();
 	}
 	
 }
+
