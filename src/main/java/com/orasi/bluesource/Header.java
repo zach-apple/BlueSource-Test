@@ -14,6 +14,7 @@ public class Header {
 	
 	/**Page Elements**/
 	@FindBy(linkText = "Accounts") private Link lnkAccounts;
+	@FindBy(linkText = "Logout") private Link lnkLogout;
 	@FindBy(xpath = "//li[contains(.,'Employees')]/a") private Link lnkEmployees;
 	@FindBy(xpath = "//a[contains(text(),'Project')]") private Link lnkProjemployees;
 	@FindBy(xpath = "//a[contains(text(),'Project')]//..//..//..//following-sibling::a") private Link lnkEmployeeSelector;
@@ -72,6 +73,12 @@ public class Header {
 		lnkEmployeeSelector.click();
 		lnkProjemployees.click();
 		
+	}
+	
+	public void navigateLogout() {
+		MessageCenter messageCenter = new MessageCenter(driver);
+		messageCenter.closeMessageCenter();
+		lnkLogout.click();		
 	}
 
 }
