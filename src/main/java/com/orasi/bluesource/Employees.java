@@ -3,17 +3,24 @@ package com.orasi.bluesource;
 import java.util.ResourceBundle;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.FindBy;
 
 import com.orasi.utils.Constants;
 import com.orasi.utils.Sleeper;
 import com.orasi.utils.TestReporter;
+import com.orasi.utils.dataHelpers.personFactory.Person;
 import com.orasi.web.OrasiDriver;
+import com.orasi.web.PageLoaded;
+import com.orasi.web.exceptions.OptionNotInListboxException;
 import com.orasi.web.webelements.Button;
+import com.orasi.web.webelements.Element;
 import com.orasi.web.webelements.Label;
 import com.orasi.web.webelements.Link;
+import com.orasi.web.webelements.Listbox;
 import com.orasi.web.webelements.Textbox;
 import com.orasi.web.webelements.Webtable;
+
 import com.orasi.web.webelements.impl.internal.ElementFactory;
 
 public class Employees {
@@ -30,7 +37,8 @@ public class Employees {
 	@FindBy(tagName = "p") private Label lblAmountInTable;
 	@FindBy(xpath = "//*[@id='accordion']/div/div[3]/h4/a") private Button btnManage;
 	@FindBy(xpath = "//div//input[@id='search-bar']") private Textbox txtEmployeeSearch;
-		
+	@FindBy(xpath = "//*[@id=\"employee_account_permission\"]") private Listbox lstAccountPermission;
+	
 	/**Constructor**/
 	public Employees(OrasiDriver driver){
 		this.driver = driver;
@@ -62,6 +70,20 @@ public class Employees {
 		
 		//complete text fields
 		completeRequiredFields(username,firstname,lastname);
+		
+		//click Create Employee
+		clickCreateEmployee();
+	}
+	
+	/**
+	 * Use the Person class to complete the employee modal
+	 * to add a new employee. 
+	 * @param person
+	 */
+	public void addEmployeeModal(Person person) {
+		
+		//complete text fields
+		completeRequiredFields(person.getUsername(),person.getFirstName(), person.getLastName());
 		
 		//click Create Employee
 		clickCreateEmployee();
@@ -175,8 +197,8 @@ public class Employees {
 		String message = "On the employee information page.";
 		String failMessage = "Button 'Manage' is not found\n";
 				
-		tblEmployees.clickCell(row, column);
-		
+		//tblEmployees.clickCell(row, column);
+		tblEmployees.getCell(2, 1).findElement(By.cssSelector("a[class='ng-binding']")).click();
 		if(btnManage.isDisplayed() == true)
 		{
 			TestReporter.assertTrue(btnManage.isDisplayed(), message);
@@ -270,4 +292,24 @@ public class Employees {
 		
 	}
 	
+	/**
+	 * Checks that a given option is selectable in the Account Permission drop down
+	 * in the add employee modal and selects it if possible.
+	 * 
+	 * @param strOption - the Account Permission role you would like to check for.
+	 * @return			<code>true</code> if the account permission option provided
+	 * 					by the user is available, <code>false</code> otherwise.
+	 * @author			Darryl Papke
+	 */
+	public boolean checkAccountPermissionOption(String strOption) {
+		try{
+			lstAccountPermission.select(strOption);
+			return true;
+		}
+		catch (OptionNotInListboxException e){
+			return false;
+		}
+			
+	}
+
 }

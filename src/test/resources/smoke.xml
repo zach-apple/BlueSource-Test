@@ -22,6 +22,7 @@
 			<class name="com.bluesource.employees.CreateBasicUser" />
 		</classes>
 	</test>
+	
 	<test name="Create Account" parallel="methods" thread-count="20">
 		<classes>
 			<class name="com.bluesource.accounts.CreateAccount" />
