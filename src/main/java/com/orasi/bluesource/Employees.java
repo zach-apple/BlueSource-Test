@@ -197,8 +197,8 @@ public class Employees {
 		String message = "On the employee information page.";
 		String failMessage = "Button 'Manage' is not found\n";
 				
-		//tblEmployees.clickCell(row, column);
-		tblEmployees.getCell(2, 1).findElement(By.cssSelector("a[class='ng-binding']")).click();
+		tblEmployees.clickCell(row, column);
+
 		if(btnManage.isDisplayed() == true)
 		{
 			TestReporter.assertTrue(btnManage.isDisplayed(), message);
@@ -296,10 +296,10 @@ public class Employees {
 	 * Checks that a given option is selectable in the Account Permission drop down
 	 * in the add employee modal and selects it if possible.
 	 * 
-	 * @param strOption - the Account Permission role you would like to check for.
-	 * @return			<code>true</code> if the account permission option provided
-	 * 					by the user is available, <code>false</code> otherwise.
-	 * @author			Darryl Papke
+	 * @param strOption the Account Permission role you would like to check for.
+	 * @return <code>true</code> if the account permission option provided
+	 * by the user is available, <code>false</code> otherwise.
+	 * @author Darryl Papke
 	 */
 	public boolean checkAccountPermissionOption(String strOption) {
 		try{
