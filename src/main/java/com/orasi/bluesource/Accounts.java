@@ -43,6 +43,8 @@ public class Accounts {
 	@FindBy(xpath = "//select[@id='account_industry_id']") private Listbox lstIndustry;
 	@FindBy(xpath = "//input[@value='Create Account']") private Button btnCreateAccount;
 	@FindBy(xpath = "//*[@id=\"accordion\"]/div/div[5]/div/button[2]") private Button btnEditAccount;
+	@FindBy(css = "div.btn.btn-secondary.btn-xs.quick-nav") private Button btnQuickNav;
+	@FindBy(xpath = "//a[contains(@ng-bind, 'n + 1')]") private List<Button> btnPages;
 
 	/**Constructor**/
 	public Accounts(OrasiDriver driver){
@@ -270,7 +272,7 @@ public class Accounts {
 	 * Checks if the add account button is visible.
 	 * 
 	 * @return <code>true</code> if the add account button is visible, 
-	 * 		   <code>false</code> otherwise.
+	 * <code>false</code> otherwise.
 	 * @author Darryl Papke
 	 */
 	public boolean verifyAddButtonIsVisible() {
@@ -281,7 +283,7 @@ public class Accounts {
 	 * Checks if the edit account button is visible.
 	 * 
 	 * @return <code>true</code> if the edit account button is visible, 
-	 * 		   <code>false</code> otherwise.
+	 * <code>false</code> otherwise.
 	 * @author Darryl Papke
 	 */
 	public boolean verifyEditButtonIsVisible() {
@@ -297,5 +299,37 @@ public class Accounts {
 		tblAccounts.getCell(2, 1).findElement(By.cssSelector("a[class='ng-binding']")).click();
 	}
 	
+	/**
+	 * Checks if the Quick Nav button is displayed.
+	 * 
+	 * @return <code>true</code> if the Quick Nav button is visible, 
+	 * <code>false</code> otherwise.
+	 * @author Darryl Papke
+	 */
+	public boolean verifyQuickNavButtonIsVisible() {
+		return btnQuickNav.syncVisible(5, true);
+	}
+	
+	/**
+	 * Goes through each page of accounts and checks if the Quick Nav button
+	 * is visible on each page.
+	 * 
+	 * @return <code>true</code> if the Quick Nav button is on each page, 
+	 * <code>false</code> otherwise.
+	 * @author Darryl Papke
+	 */
+	public boolean verifyQuickNavButtonEachPage() {
+		boolean answer = false;
+		for(Button page : btnPages) {
+			page.syncEnabled(5);
+			page.click();
+			answer = verifyQuickNavButtonIsVisible();
+			if(!verifyQuickNavButtonIsVisible()) {
+				return false;
+			}
+		}
+		return answer;
+	}
+
 }
 
