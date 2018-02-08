@@ -29,4 +29,10 @@
 		</classes>
 	</test>
 	
+	<test name="Account Viewer Role" parallel="methods" thread-count="20">
+		<classes>
+			<class name="com.bluesource.accounts.AccountViewerRole" />
+		</classes>
+	</test>
+	
 </suite> <!-- Suite -->
