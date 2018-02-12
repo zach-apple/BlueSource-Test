@@ -320,6 +320,7 @@ public class Accounts {
 	 */
 	public boolean verifyQuickNavButtonEachPage() {
 		boolean answer = false;
+		PageLoaded.isDomComplete(driver, 5);
 		for(Button page : btnPages) {
 			page.syncEnabled(5);
 			page.click();
@@ -330,6 +331,6 @@ public class Accounts {
 		}
 		return answer;
 	}
-
+	
 }
 
