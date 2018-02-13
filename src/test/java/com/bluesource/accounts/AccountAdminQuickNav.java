@@ -51,7 +51,7 @@ public class AccountAdminQuickNav extends WebBaseTest {
     	
     	TestReporter.logStep("Test started");
     	
-    	TestReporter.logStep("Login to application as an employee with Account Viewer permission");
+    	TestReporter.logStep("Login to application as an Account Admin");
     	loginPage.AdminLogin();
     	
     	TestReporter.logStep("Go to the Accounts page");
