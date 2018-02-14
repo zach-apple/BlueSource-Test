@@ -32,7 +32,7 @@ public class Accounts {
 	
 	/**Page Elements**/
 	@FindBy(xpath = "//*[@id='resource-content']/div[2]/p") private Element elmNumberPages;
-	@FindBy(tagName = "tbody") private Webtable tblAccounts;
+	@FindBy(xpath = "//*[@id=\"resource-content\"]/div[1]/table/tbody") private Webtable tblAccounts;
 	@FindBy(id = "preference_resources_per_page") private Listbox lstAccountPerPage;
 	@FindBy(linkText = "Industry") private Link lnkIndustry;
 	@FindBy(linkText = "Accounts") private Link lnkAccountsTab;
@@ -45,6 +45,7 @@ public class Accounts {
 	@FindBy(xpath = "//*[@id=\"accordion\"]/div/div[5]/div/button[2]") private Button btnEditAccount;
 	@FindBy(css = "div.btn.btn-secondary.btn-xs.quick-nav") private Button btnQuickNav;
 	@FindBy(xpath = "//a[contains(@ng-bind, 'n + 1')]") private List<Button> btnPages;
+	@FindBy(xpath = "//*[@id=\"project-list\"]/div/div[1]/div") private Button btnCloseQuickNav;
 
 	/**Constructor**/
 	public Accounts(OrasiDriver driver){
@@ -330,6 +331,49 @@ public class Accounts {
 			}
 		}
 		return answer;
+	}
+	
+	/**
+	 * Clicks the Quick Nav button.
+	 * 
+	 * @author Darryl Papke
+	 */
+	public void clickQuickNav() {
+		btnQuickNav.click();
+	}
+
+	/**
+	 * Clicks the close quick nav button.
+	 * 
+	 * @author Darryl Papke
+	 */
+	public void closeQuickNav() {
+		PageLoaded.isDomComplete(driver, 5);
+		btnCloseQuickNav.click();
+	}
+	
+	/**
+	 * Checks if the Quick Nav close button is visible.
+	 * 
+	 * @return <code>true</code> if the Quick Nav close button is 
+	 * visible, <code>false</code> otherwise.
+	 * @author Darryl Papke
+	 */
+	public boolean verifyQuickNavCloseButtonIsVisible() {
+		PageLoaded.isDomComplete(driver, 5);
+		return btnCloseQuickNav.syncVisible(3, false);
+	}
+	
+	/**
+	 * Clicks on a cell in the Accounts table from given coordinates.
+	 * 
+	 * @param row Desired row in which to search for a particular cell
+	 * @param column Desired column in which to find the cell
+	 * @author Darryl Papke
+	 */
+	public void selectCell(int row, int column) {
+		tblAccounts.clickCell(row, column);
+		PageLoaded.isDomComplete(driver, 1);
 	}
 	
 }
