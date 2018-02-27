@@ -1,30 +1,16 @@
 package com.orasi.bluesource;
 
-import java.lang.reflect.UndeclaredThrowableException;
-import java.util.List;
-
-import javax.lang.model.util.Elements;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.orasi.utils.Randomness;
-import com.orasi.utils.TestReporter;
 import com.orasi.web.OrasiDriver;
 import com.orasi.web.PageLoaded;
-import com.orasi.web.webelements.Button;
-import com.orasi.web.webelements.Element;
-import com.orasi.web.webelements.Link;
-import com.orasi.web.webelements.Listbox;
-import com.orasi.web.webelements.Textbox;
-import com.orasi.web.webelements.Webtable;
+import com.orasi.web.webelements.*;
 import com.orasi.web.webelements.impl.internal.ElementFactory;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.support.FindBy;
+
+import java.lang.reflect.UndeclaredThrowableException;
+import java.util.List;
 
 public class Accounts {
 	private OrasiDriver driver = null;
@@ -46,6 +32,8 @@ public class Accounts {
 	@FindBy(css = "div.btn.btn-secondary.btn-xs.quick-nav") private Button btnQuickNav;
 	@FindBy(xpath = "//a[contains(@ng-bind, 'n + 1')]") private List<Button> btnPages;
 	@FindBy(xpath = "//*[@id=\"project-list\"]/div/div[1]/div") private Button btnCloseQuickNav;
+	@FindBy(xpath = "//*[@id=\"panel_body_4\"]/div/div/table") private Webtable tblProjectRoles;
+	@FindBy(xpath = "//*[@id=\"panel_body_2\"]/div/table") private Webtable tblRoleRates;
 
 	/**Constructor**/
 	public Accounts(OrasiDriver driver){
@@ -55,10 +43,36 @@ public class Accounts {
 	
 	/**Page Interactions**/
 
-	/*
+	/**
+	 * returns <code>true</code> if the rate field from the Rates table on a Project page
+	 * matches the rate on the Rates table on the Role page.
+	 * @author David Grayson
+	 */
+	public boolean verifyRoleRate(String rate) {
+		return tblRoleRates.syncVisible() && tblRoleRates.getRowWithCellText(rate, 5, 1, true) != 0;
+	}
+
+	/**
+	 * Gets the rate field in the Role Table on a project page
+	 * @author David Grayson
+	 * @param role the name of the role to get the rate for
+	 */
+	public String getRoleRateFromProjectPage(String role){
+		final int colPosition = 2;
+		try{
+			int row = tblProjectRoles.getRowWithCellText(role);
+			return tblProjectRoles.getCell(row, colPosition).getText();
+		} catch (NoSuchElementException e){
+			System.out.println("No such exception, Role table on project page not found\n" + e.getLocalizedMessage());
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
 	 * Click on accounts tab 
 	 * Make sure that the correct page loads
-	 * author: Daniel Smith
+	 * @author: Daniel Smith
 	 */
 	public void click_accounts_tab(String username)
 	{
@@ -116,9 +130,9 @@ public class Accounts {
 		
 	}
 	
-	/*
+	/**
 	 * Change the number showing for accounts per page to 100
-	 * author: Daniel Smith
+	 * @author: Daniel Smith
 	 */
 	public void accountsPerPage()
 	{
@@ -137,7 +151,7 @@ public class Accounts {
 		
 	}
 	
-	/*
+	/**
 	 * Sort accounts table by industry
 	 * @author: Daniel Smith
 	 */
@@ -157,6 +171,7 @@ public class Accounts {
 		String xpathExpression;
 		xpathExpression = "//td//a[contains(text(),'" + strAccount + "')]";
 		Link lnkAccount = driver.findLink(By.xpath(xpathExpression));
+		lnkAccount.syncVisible();
 		lnkAccount.click();
 	}
 	
