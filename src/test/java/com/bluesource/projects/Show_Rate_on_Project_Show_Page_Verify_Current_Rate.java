@@ -69,14 +69,11 @@ public class Show_Rate_on_Project_Show_Page_Verify_Current_Rate extends WebBaseT
 
 		TestReporter.logStep("Get and store [" + strRole + "] rate");
 		roleRateFromProjectPage = accounts.getRoleRateFromProjectPage(strRole);
-		System.out.println(roleRateFromProjectPage);
 
 		TestReporter.logStep("Go to Role [" + strRole + "] page");
 		accounts.clickRoleLink(strRole);
 
 		TestReporter.assertTrue(accounts.verifyRoleRate(roleRateFromProjectPage),
 				"Verify Role rate from Project page exists on Role page");
-
-
 	}
 }
