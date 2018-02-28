@@ -13,7 +13,7 @@
 	
 	<test name="In Progress test" parallel="methods" thread-count="20">
 		<classes>
-			<class name="com.bluesource.projects.Show_Rate_on_Project_Show_Page_Verify_Current_Rate" />
+			<class name="com.bluesource.projects.Show_Rate_on_Project_Show_Page_Verify" />
 		</classes>
 	</test>
 

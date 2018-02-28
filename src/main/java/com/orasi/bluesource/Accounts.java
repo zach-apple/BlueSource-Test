@@ -32,8 +32,6 @@ public class Accounts {
 	@FindBy(css = "div.btn.btn-secondary.btn-xs.quick-nav") private Button btnQuickNav;
 	@FindBy(xpath = "//a[contains(@ng-bind, 'n + 1')]") private List<Button> btnPages;
 	@FindBy(xpath = "//*[@id=\"project-list\"]/div/div[1]/div") private Button btnCloseQuickNav;
-	@FindBy(xpath = "//*[@id=\"panel_body_4\"]/div/div/table") private Webtable tblProjectRoles;
-	@FindBy(xpath = "//*[@id=\"panel_body_2\"]/div/table") private Webtable tblRoleRates;
 
 	/**Constructor**/
 	public Accounts(OrasiDriver driver){
@@ -44,12 +42,13 @@ public class Accounts {
 	/**Page Interactions**/
 
 	/**
-	 * returns <code>true</code> if the rate field from the Rates table on a Project page
-	 * matches the rate on the Rates table on the Role page.
+	 * Checks if the rate provided matches the rate field on the Role page
 	 * @author David Grayson
+	 * @return <code>true</code> if the rate field from the Rates table on a Project page
+	 * matches the rate on the Rates table on the Role page, <code>false</code> if not.
 	 */
 	public boolean verifyRoleRate(String rate) {
-		return tblRoleRates.syncVisible() && tblRoleRates.getRowWithCellText(rate, 5, 1, true) != 0;
+		return driver.findWebtable(By.xpath("//th[contains(text(), 'Rate')]/../../..")).getRowWithCellText(rate, 5) != 0;
 	}
 
 	/**
@@ -60,6 +59,7 @@ public class Accounts {
 	public String getRoleRateFromProjectPage(String role){
 		final int colPosition = 2;
 		try{
+			Webtable tblProjectRoles = driver.findWebtable(By.xpath("//th[contains(text(), 'Rate')]/../../.."));
 			int row = tblProjectRoles.getRowWithCellText(role);
 			return tblProjectRoles.getCell(row, colPosition).getText();
 		} catch (NoSuchElementException e){
@@ -170,8 +170,9 @@ public class Accounts {
 	public void clickAccountLink(String strAccount){
 		String xpathExpression;
 		xpathExpression = "//td//a[contains(text(),'" + strAccount + "')]";
+		accountsPerPage();
 		Link lnkAccount = driver.findLink(By.xpath(xpathExpression));
-		lnkAccount.syncVisible();
+		//lnkAccount.syncVisible();
 		lnkAccount.click();
 	}
 	
