@@ -60,8 +60,7 @@ public class EmployeePage {
 	}
 
 	public void editGeneralInfo() {
-		btnEditGeneral.click();
-		
+		btnEditGeneral.click();	
 	}		
 	
 	public void clickDeactivateEmployee() {

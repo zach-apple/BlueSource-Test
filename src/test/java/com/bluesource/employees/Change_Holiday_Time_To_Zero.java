@@ -39,21 +39,14 @@ public class Change_Holiday_Time_To_Zero extends WebBaseTest {
 
 	@Test(groups = { "smoke" })
 	public void change_holiday_to_zero() {
+		TestReporter.logStep("Log in as a project user");
 		LoginPage loginPage = new LoginPage(getDriver());
-		EmployeePage employeePage = new EmployeePage(getDriver());
-		ReportedTimesSummary reportedTimesSummary = new ReportedTimesSummary(getDriver());
-		// 1. Navigate to the login page
-		// 2. Login with base employee username
 		loginPage.Login("PROJECT_USER");
-		// 3. Click the 'Manage' button in the 'Project Info' section
+		TestReporter.logStep("Click the 'Manage' button in the 'Project Info' section");
+		EmployeePage employeePage = new EmployeePage(getDriver());
 		employeePage.clickManageProject();
-		// 4. Find a timesheet period with time charged toward 'Company Holiday' or
-		// 'Holiday'.
-		// Look through the current periods table for a project that is editable, search
-		// it for holiday billing
+		TestReporter.logStep("Find a timesheet with holiday time, change it to zero, and verify the change shows hours zeroed out.");
+		ReportedTimesSummary reportedTimesSummary = new ReportedTimesSummary(getDriver());
 		TestReporter.assertTrue(reportedTimesSummary.changeHolidayTimeToZeroAndVerify(), "Verify that the timesheet with holiday time shows zero when set to zero");
-
-		System.out.println("wait");
-
 	}
 }
