@@ -24,6 +24,7 @@ public class ReportedTimesSummary {
 
 	/** Page Elements **/
 	@FindBy(xpath = "//div[contains(@class,'time-back')]") private Button btnBack;
+	@FindBy(xpath = "//*[@id=\"content\"]/div[4]/a") private Link lnkNextMonth;
 
 	/** Constructor **/
 	public ReportedTimesSummary(OrasiDriver driver) {
@@ -97,7 +98,7 @@ public class ReportedTimesSummary {
 		default:
 			break;
 		}
-		boolean allVisible = false;
+		boolean allVisible = false;//holds the final verification value
 		// the surrounding pieces of the xpath to look for on the page
 		String xpathToSearchPart1 = "//td[contains(text(),'", xpathToSearchPart2 = "')]";
 		// if the two weeks are both in the current month
@@ -113,26 +114,28 @@ public class ReportedTimesSummary {
 		} // if week one is split, starting in current month and ending in the next
 		else if (Integer.parseInt(startOfWeekPlusOne.substring(0, 2)) == theDate.getMonthValue()
 				&& Integer.parseInt(endOfWeekPlusOne.substring(0, 2)) == theDate.plusMonths(1).getMonthValue()) {
-			// check startOne
+			// check beginning of first week
 			allVisible = driver.findElement(By.xpath(xpathToSearchPart1 + startOfWeekPlusOne + xpathToSearchPart2))
 					.syncVisible();
 			// click next month
+			lnkNextMonth.click();
+			// check end of week one, then the rest
 			allVisible &= driver.findElement(By.xpath(xpathToSearchPart1 + startOfWeekPlusTwo + xpathToSearchPart2))
 					.syncVisible()
 					&& driver.findElement(By.xpath(xpathToSearchPart1 + endOfWeekPlusOne + xpathToSearchPart2))
 							.syncVisible()
 					&& driver.findElement(By.xpath(xpathToSearchPart1 + endOfWeekPlusTwo + xpathToSearchPart2))
 							.syncVisible();
-			// check endOne, then rest
 		} // if the first week is in the current month, but the second is in the next month
 		else if (Integer.parseInt(endOfWeekPlusOne.substring(0, 2)) == theDate.getMonthValue()
 				&& Integer.parseInt(startOfWeekPlusTwo.substring(0, 2)) == theDate.plusMonths(1).getMonthValue()) {
-			// check startOne and endOne
+			// check week one
 			allVisible = driver.findElement(By.xpath(xpathToSearchPart1 + startOfWeekPlusOne + xpathToSearchPart2))
 					.syncVisible()
 					&& driver.findElement(By.xpath(xpathToSearchPart1 + startOfWeekPlusTwo + xpathToSearchPart2))
 							.syncVisible();
 			// click next month
+			lnkNextMonth.click();
 			// check the rest
 			allVisible &= driver.findElement(By.xpath(xpathToSearchPart1 + endOfWeekPlusOne + xpathToSearchPart2))
 					.syncVisible()
@@ -150,12 +153,14 @@ public class ReportedTimesSummary {
 					&& driver.findElement(By.xpath(xpathToSearchPart1 + endOfWeekPlusOne + xpathToSearchPart2))
 							.syncVisible();
 			// click the next month
+			lnkNextMonth.click();
 			// check the end of the second week
 			allVisible &= driver.findElement(By.xpath(xpathToSearchPart1 + endOfWeekPlusTwo + xpathToSearchPart2))
 					.syncVisible();
 		} // else both weeks are in the next month
 		else {
-			// click the next month
+			// click the next month, and check all
+			lnkNextMonth.click();
 			allVisible = driver.findElement(By.xpath(xpathToSearchPart1 + startOfWeekPlusOne + xpathToSearchPart2))
 					.syncVisible()
 					&& driver.findElement(By.xpath(xpathToSearchPart1 + startOfWeekPlusTwo + xpathToSearchPart2))
@@ -165,7 +170,6 @@ public class ReportedTimesSummary {
 					&& driver.findElement(By.xpath(xpathToSearchPart1 + endOfWeekPlusTwo + xpathToSearchPart2))
 							.syncVisible();
 		}
-
 		return allVisible;
 	}
 
