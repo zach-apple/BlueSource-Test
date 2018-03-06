@@ -32,6 +32,8 @@ public class Accounts {
 	@FindBy(css = "div.btn.btn-secondary.btn-xs.quick-nav") private Button btnQuickNav;
 	@FindBy(xpath = "//a[contains(@ng-bind, 'n + 1')]") private List<Button> btnPages;
 	@FindBy(xpath = "//*[@id=\"project-list\"]/div/div[1]/div") private Button btnCloseQuickNav;
+	@FindBy(xpath = "//*[@id=\"panel_body_4\"]/div/div/table") private Webtable tblProjectRoles;
+	@FindBy(xpath = "//*[@id=\"panel_body_2\"]/div/table") private Webtable tblRoleRates;
 
 	/**Constructor**/
 	public Accounts(OrasiDriver driver){
@@ -170,9 +172,8 @@ public class Accounts {
 	public void clickAccountLink(String strAccount){
 		String xpathExpression;
 		xpathExpression = "//td//a[contains(text(),'" + strAccount + "')]";
-		accountsPerPage();
 		Link lnkAccount = driver.findLink(By.xpath(xpathExpression));
-		//lnkAccount.syncVisible();
+		lnkAccount.syncVisible();
 		lnkAccount.click();
 	}
 	
