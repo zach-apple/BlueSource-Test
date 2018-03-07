@@ -46,18 +46,36 @@ public class Accounts {
 	
 	/**Page Interactions**/
 
+	/**
+	 * @author David Grayson
+	 * @param strAccount {@link String} name of Roles parent account
+	 * @param strProject {@link String} name of Roles parent project
+	 * @param strRole {@link String} name of role
+	 * @return {@link Boolean} Returns <code>true</code> if the provided Roles page is loaded, <code>false</code> otherwise.
+	 */
 	public boolean verifyRolePageIsLoaded(String strAccount, String strProject, String strRole){
 		return PageLoaded.isElementLoaded(this.getClass(),driver,elmRoleInfoPanelHeader,5)
 				&& driver.findElement(By.xpath("//div[@class='breadcrumbs']")).getText()
 				.equals("Accounts - " + strAccount + " - " + strProject + " - " + strRole);
 	}
 
+	/**
+	 * @author David Grayson
+	 * @param strAccount {@link String} name of Projects parent account
+	 * @param strProject {@link String} name of project
+	 * @return {@link Boolean} Returns <code>true</code> if the provided Projects page is loaded, <code>false</code> otherwise.
+	 */
 	public boolean verifyProjectPageIsLoaded(String strAccount, String strProject){
 		return PageLoaded.isElementLoaded(this.getClass(),driver, elmProjectInfoPanelHeader,5)
 				&& driver.findElement(By.xpath("//div[@class='breadcrumbs']")).getText()
 				.equals("Accounts - " + strAccount + " - " + strProject);
 	}
 
+	/**
+	 * @author David Grayson
+	 * @param strAccount {@link String} name of Account
+	 * @return {@link Boolean} Returns <code>true</code> if the provided Accounts page is loaded, <code>false</code> otherwise.
+	 */
 	public boolean verifyAccountPageIsLoaded(String strAccount){
 		String xpath = "//div[@class='breadcrumbs']/a[contains(text(),'" + strAccount + "')]";
 		return PageLoaded.isElementLoaded(this.getClass(),driver,tblProjects,5)
