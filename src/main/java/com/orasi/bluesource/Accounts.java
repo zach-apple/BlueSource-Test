@@ -1,6 +1,7 @@
 package com.orasi.bluesource;
 
 import com.orasi.utils.Randomness;
+import com.orasi.utils.TestReporter;
 import com.orasi.web.OrasiDriver;
 import com.orasi.web.PageLoaded;
 import com.orasi.web.webelements.*;
@@ -32,8 +33,10 @@ public class Accounts {
 	@FindBy(css = "div.btn.btn-secondary.btn-xs.quick-nav") private Button btnQuickNav;
 	@FindBy(xpath = "//a[contains(@ng-bind, 'n + 1')]") private List<Button> btnPages;
 	@FindBy(xpath = "//*[@id=\"project-list\"]/div/div[1]/div") private Button btnCloseQuickNav;
-	@FindBy(xpath = "//*[@id=\"panel_body_4\"]/div/div/table") private Webtable tblProjectRoles;
-	@FindBy(xpath = "//*[@id=\"panel_body_2\"]/div/table") private Webtable tblRoleRates;
+	@FindBy(xpath = "//th[contains(text(),'Role')]/../../..") private Webtable tblProjectRoles;
+	@FindBy(xpath = "//th[contains(text(),'Rate')]/../../..") private Webtable tblRoleRates;
+	@FindBy(xpath = "//h4[@class='panel-title' and contains(text(),'Project Info')]") private Element elmProjectInfoPanelHeader;
+	@FindBy(xpath = "//h4[@class='panel-title' and contains(text(),'Role Information')]") private Element elmRoleInfoPanelHeader;
 
 	/**Constructor**/
 	public Accounts(OrasiDriver driver){
@@ -43,32 +46,56 @@ public class Accounts {
 	
 	/**Page Interactions**/
 
+	public boolean verifyRolePageIsLoaded(String strAccount, String strProject, String strRole){
+		return PageLoaded.isElementLoaded(this.getClass(),driver,elmRoleInfoPanelHeader,5)
+				&& driver.findElement(By.xpath("//div[@class='breadcrumbs']")).getText()
+				.equals("Accounts - " + strAccount + " - " + strProject + " - " + strRole);
+	}
+
+	public boolean verifyProjectPageIsLoaded(String strAccount, String strProject){
+		return PageLoaded.isElementLoaded(this.getClass(),driver, elmProjectInfoPanelHeader,5)
+				&& driver.findElement(By.xpath("//div[@class='breadcrumbs']")).getText()
+				.equals("Accounts - " + strAccount + " - " + strProject);
+	}
+
+	public boolean verifyAccountPageIsLoaded(String strAccount){
+		String xpath = "//div[@class='breadcrumbs']/a[contains(text(),'" + strAccount + "')]";
+		return PageLoaded.isElementLoaded(this.getClass(),driver,tblProjects,5)
+				&& driver.findLink(By.xpath(xpath)).syncVisible(5,false);
+	}
+
 	/**
-	 * Checks if the rate provided matches the rate field on the Role page
 	 * @author David Grayson
-	 * @return <code>true</code> if the rate field from the Rates table on a Project page
-	 * matches the rate on the Rates table on the Role page, <code>false</code> if not.
+	 * @return {@link Boolean} Returns <code>true</code> if the Accounts table is loaded, <code>false</code> otherwise.
 	 */
-	public int getRoleRate(String rate) {
-		return driver.findWebtable(By.xpath("//th[contains(text(), 'Rate')]/../../..")).getRowWithCellText(rate, 5);
+	public boolean verifyAccountsPageIsLoaded(){
+		return PageLoaded.isElementLoaded(this.getClass(),driver,tblAccounts,5);
+	}
+
+	/**
+	 * @author David Grayson
+	 * @return {@link Boolean} Returns <code>true</code> if the rate field from the Rates table on a Project page
+	 * matches the rate on the Rates table on the Role page.
+	 */
+	public boolean verifyRoleRate(String rate) {
+		TestReporter.log(driver.findElement(By.xpath("//div[@class='breadcrumbs']")).getText());
+		return tblRoleRates.syncVisible() && tblRoleRates.getRowWithCellText(rate, 5, 1, true) != 0;
 	}
 
 	/**
 	 * Gets the rate field in the Role Table on a project page
 	 * @author David Grayson
-	 * @param role the name of the role to get the rate for
+	 * @param role {@link String}the name of the role to get the rate for
+	 * @return {@link String}
 	 */
 	public String getRoleRateFromProjectPage(String role){
 		final int colPosition = 2;
-		try{
-			Webtable tblProjectRoles = driver.findWebtable(By.xpath("//th[contains(text(), 'Rate')]/../../.."));
+		if (tblProjectRoles.syncEnabled(5,false) && tblProjectRoles.syncVisible(5,false)){
 			int row = tblProjectRoles.getRowWithCellText(role);
-			return tblProjectRoles.getCell(row, colPosition).getText();
-		} catch (NoSuchElementException e){
-			System.out.println("No such exception, Role table on project page not found\n" + e.getLocalizedMessage());
-			e.printStackTrace();
+			if (tblProjectRoles.getCell(row,colPosition).isEnabled() && tblProjectRoles.getCell(row,colPosition).isDisplayed())
+				return tblProjectRoles.getCell(row, colPosition).getText();
 		}
-		return null;
+		return "";
 	}
 
 	/**
