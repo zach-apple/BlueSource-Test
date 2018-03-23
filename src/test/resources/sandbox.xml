@@ -13,7 +13,7 @@
 	
 	<test name="In Progress test" parallel="methods" thread-count="20">
 		<classes>
-			<class name="com.bluesource.employees.Change_Holiday_Time_To_Zero" />
+			<class name="com.bluesource.projects.ShowRateOnProjectShowPageVerify" />
 		</classes>
 	</test>
 
