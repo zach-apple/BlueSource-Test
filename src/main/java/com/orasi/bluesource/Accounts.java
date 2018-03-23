@@ -3,6 +3,7 @@ package com.orasi.bluesource;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.lang.model.util.Elements;
 
@@ -364,27 +365,51 @@ public class Accounts {
 	}
 
 	/**
+	 * Clicks on each header twice, changing from default to either collapse/expand
+	 * the header, and from the new state clicks again to return to the original
+	 * state. Returns the result of checking the change after each click.
+	 * 
 	 * @author Zach Apple
+	 * @return True if each header collapsed/expanded in respect to default state
+	 *         and if each header collapsed/expanded in respect to the changed
+	 *         state. False otherwise.
 	 */
 	public boolean verifyCollapseExpandHeaders() {
+		//holds the expected value that each header collapses/expands upon click
 		boolean headerCollapsesAndExpands = true;
 		PageLoaded.isDomComplete(driver, 5);
-		List<Element> list = driver.findElements(By.xpath(
-				"//span[@class = 'glyphicon-chevron-up glyphicon pull-left panel-collapse-icon']/..|//span[@class = 'glyphicon-chevron-down glyphicon pull-left panel-collapse-icon']/.."));
+		//a list of each header element
+		List<Element> list = driver.findElements(By.xpath("//span[contains(@class, 'glyphicon-chevron-')]"));
+		//a wait to be used after each click to give time for the header to fully collapse/expand
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		for (Element e : list) {
 			PageLoaded.isDomComplete(driver, 5);
-			if (e.findElement(By.tagName("./span")).getAttribute("class").equals("glyphicon-chevron-down glyphicon pull-left panel-collapse-icon")) {
+			if (e.getAttribute("class").contains("glyphicon-chevron-up")) {
 				e.click();
-				PageLoaded.isElementLoaded(Accounts.class, driver, e);
-				headerCollapsesAndExpands &= e.getAttribute("class").equals("display_block");
+				//wait for the attribute to change, or default 5 seconds
+				wait.until(ExpectedConditions.attributeContains(e, "class", "glyphicon-chevron-down"));
+				//verify the expected change
+				headerCollapsesAndExpands &= e.getAttribute("class").contains("glyphicon-chevron-down");
 				e.click();
-				headerCollapsesAndExpands &= e.getAttribute("class").equals("display_block collapsed");
+				//wait for the attribute to change, or default 5 seconds
+				wait.until(ExpectedConditions.attributeContains(e, "class", "glyphicon-chevron-up"));
+				//verify the expected change
+				headerCollapsesAndExpands &= e.getAttribute("class").contains("glyphicon-chevron-up");
 			} else {
 				e.click();
-				PageLoaded.isElementLoaded(Accounts.class, driver, e);
-				headerCollapsesAndExpands &= e.getAttribute("class").equals("display_block collapsed");
+				//wait for the attribute to change, or default 5 seconds
+				wait.until(ExpectedConditions.attributeContains(e, "class", "glyphicon-chevron-up"));
+				//verify the expected change
+				headerCollapsesAndExpands &= e.getAttribute("class").contains("glyphicon-chevron-up");
+				//wait for the attribute to change, or default 5 seconds
 				e.click();
-				headerCollapsesAndExpands &= e.getAttribute("class").equals("display_block");
+				wait.until(ExpectedConditions.attributeContains(e, "class", "glyphicon-chevron-down"));
+				//verify the expected change
+				headerCollapsesAndExpands &= e.getAttribute("class").contains("glyphicon-chevron-down");
+			}
+			if(!headerCollapsesAndExpands) {
+				//Short circuit the test, as it will have failed if headerCollapsesAndExpands is ever false
+				return false;
 			}
 		}
 		return headerCollapsesAndExpands;
